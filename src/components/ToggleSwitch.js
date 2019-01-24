@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import WithTooltip from './WithTooltip';
 import { getChangeValue } from './Inputable';
+import './toggle-switch.scss';
 
 const propTypes = {
   value: PropTypes.bool.isRequired,
@@ -30,7 +31,7 @@ export default class ToggleSwitch extends React.Component {
     const { value, disabled, tooltip } = this.props;
 
     return (
-      <label className="switch" data-identifier={this.props.dataIdentifier}>
+      <label className="toggle-switch" data-identifier={this.props.dataIdentifier}>
         <input
           type="checkbox"
           checked={value}

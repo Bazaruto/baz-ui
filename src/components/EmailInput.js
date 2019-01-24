@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { isEmail } from '../validation';
-import Input from '../form/Input';
+import Input from './Input';
 
 export default class EmailInput extends React.Component {
   static propTypes = {
