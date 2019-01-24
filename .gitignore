@@ -84,3 +84,4 @@ db/structure.sql
 
 #ignore .env for local environment variables
 .env
+/yarn-error.log
