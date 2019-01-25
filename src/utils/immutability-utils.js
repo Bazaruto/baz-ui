@@ -1,9 +1,4 @@
-import Immutable from 'seamless-immutable';
 import _ from 'lodash';
-
-export function immutable(obj) {
-  return Immutable(obj);
-}
 
 export function updateArray(array, indexFinder, mapper) {
   const index = _.isFunction(indexFinder) ? _.findIndex(array, indexFinder) : indexFinder;

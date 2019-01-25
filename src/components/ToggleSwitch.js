@@ -39,7 +39,7 @@ export default class ToggleSwitch extends React.Component {
           disabled={disabled}
         />
         {!!tooltip
-          ? <WithTooltip id="tooltip" placement="bottom" tooltip={tooltip}>
+          ? <WithTooltip id="tooltip" placement="top" tooltip={tooltip}>
               {this.slider}
             </WithTooltip>
           : this.slider

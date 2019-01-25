@@ -1,0 +1,34 @@
+button.loader-button {
+  span.spinner-container {
+    display: inline-block;
+    width: 0;
+    opacity: 0;
+    transition: width .2s linear, opacity .3s ease-in;
+    -webkit-transition: width .2s linear, opacity .3s ease-in;
+    -moz-transition: width .2s linear, opacity .3s ease-in;
+    -o-transition: width .2s linear, opacity .3s ease-in;
+
+    span.loader {
+      display: none;
+    }
+  }
+}
+
+button.loader-button.loading {
+  padding-top: 6px;
+  padding-bottom: 6px;
+
+  span.spinner-container {
+    width: 25px;
+    opacity: 1;
+
+    span.loader {
+      display: block;
+
+      &:after {
+        top: 2px;
+        left: 5px;
+      }
+    }
+  }
+}

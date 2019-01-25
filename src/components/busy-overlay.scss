@@ -1,0 +1,17 @@
+.busy-overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1020;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.busy-overlay.gray {
+  background-color: rgba(242, 242, 242, 0.7);
+}
+
+.busy-overlay.light-gray {
+  background-color: rgba(236, 232, 232, 0.44);
+}

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import _ from 'lodash';
 import Select from './Select';
-import Tag from '../Tag';
+import Tag from './Tag';
 import { getChangeValue } from './Inputable';
 
 function isNone(values) {
