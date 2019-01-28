@@ -1,22 +1,15 @@
-// Import bare bones Observable without operators
-import { Observable } from 'rxjs/Observable';
-
-import { fromPromise } from 'rxjs/observable/fromPromise';
-import { of } from 'rxjs/observable/of';
-import { empty } from 'rxjs/observable/empty';
-
+import { Observable, from, of, empty } from 'rxjs';
+import { flatMap, switchMap, pluck, map, catchError } from 'rxjs/operators';
 import _ from 'lodash';
 
-Observable.prototype.pluckPayload = function(...keys) {
-  return this.pluck('payload', ...keys);
+export const pluckPayload = (...keys) => pluck('payload', ...keys);
+
+export const flatAjax = (apiOperation) => {
+  return flatMap(createApiOperationMapper(apiOperation));
 };
 
-Observable.prototype.flatAjax = function(apiOperation) {
-  return this.flatMap(createApiOperationMapper(apiOperation));
-};
-
-Observable.prototype.switchAjax = function(apiOperation) {
-  return this.switchMap(createApiOperationMapper(apiOperation));
+export const switchAjax = (apiOperation) => {
+  return switchMap(createApiOperationMapper(apiOperation));
 };
 
 function createApiOperationMapper(apiOperation) {
@@ -35,11 +28,11 @@ function createApiOperationMapper(apiOperation) {
     }
 
     if (!(ajax$ instanceof Observable)) {
-      ajax$ = fromPromise(ajax$);
+      ajax$ = from(ajax$);
     }
 
-    ajax$ = ajax$
-      .map(ajaxResponse => {
+    ajax$ = ajax$.pipe(
+      map(ajaxResponse => {
         // Add normalized entities to the action metadata
         if (ajaxResponse && ajaxResponse.normalized) {
           const { normalized } = ajaxResponse;
@@ -50,13 +43,16 @@ function createApiOperationMapper(apiOperation) {
           ajaxResponse = ajaxResponse.response;
         }
         return { payload: ajaxResponse, meta };
-      })
-      .catch(err => {
+      }),
+      catchError(err => {
         return of({ error: true, payload: err, meta })
-      });
+      })
+    );
 
     if (fsa) {
-      ajax$ = ajax$.map(res => ({ ...res, type: `${action.type}_RESPONSE` }));
+      ajax$ = ajax$.pipe(
+        map(res => ({ ...res, type: `${action.type}_RESPONSE` }))
+      );
     }
 
     return ajax$;

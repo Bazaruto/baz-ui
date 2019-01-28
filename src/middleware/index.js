@@ -1,6 +1,9 @@
 const noop = () => {}
 
-export function createOperationStatusMiddleware({ onShowBusy = noop, onHideBusy = noop, onShowSuccess = noop }) {
+export function createOperationStatusMiddleware({
+  onShowBusy = noop,
+  onHideBusy = noop,
+  onShowSuccess = noop }) {
   return store => next => action => {
     if (hasOperation(action)) {
       const { operation } = action.meta;
@@ -8,14 +11,12 @@ export function createOperationStatusMiddleware({ onShowBusy = noop, onHideBusy 
         if (operation.busy) {
           onShowBusy(operation.busy);
         }
-        return;
+      } else {
+        onHideBusy();
+        if (!action.error) {
+          onShowSuccess(operation.done);
+        }
       }
-
-      onHideBusy();
-      if (action.error) {
-        return;
-      }
-      onShowSuccess(operation.done);
     }
 
     return next(action);
