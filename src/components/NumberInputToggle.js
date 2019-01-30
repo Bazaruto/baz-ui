@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import NumberTextInput from '../NumberTextInput';
+import { NumberInput } from './NumberInput';
 import Inputable from './Inputable';
 
 const propTypes = {
@@ -36,7 +36,7 @@ class NumberInputToggle extends Component {
       <div className="number-input-toggle-container">
         <div className="number-input-toggle">
           <div className="input-group light-theme">
-            <NumberTextInput
+            <NumberInput
               className="form-control"
               onChange={onChange}
               value={value}

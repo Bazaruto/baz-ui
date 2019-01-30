@@ -51,7 +51,10 @@ function createApiOperationMapper(apiOperation) {
 
     if (fsa) {
       ajax$ = ajax$.pipe(
-        map(res => ({ ...res, type: `${action.type}_RESPONSE` }))
+        map(res => ({
+          ...res,
+          type: `${action.type}_${res.error ? 'ERROR' : 'RESPONSE'}`
+        }))
       );
     }
 

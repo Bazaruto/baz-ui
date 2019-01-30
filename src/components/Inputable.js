@@ -52,7 +52,7 @@ export default function inputable(Wrapped) {
               inputRef={this.setInputRef}
             />
             {button &&
-              <span className="input-group-btn">
+              <span className="input-group-btn input-group-append">
                 {button}
               </span>
             }

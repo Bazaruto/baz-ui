@@ -1,6 +1,6 @@
 import { timer, empty } from 'rxjs';
 import { filter, groupBy, flatMap, debounce } from 'rxjs/operators';
-import { switchAjax, flatAjax } from './rx-extensions'
+import { switchAjax, flatAjax } from './custom-operators'
 
 export function ajaxEpic(type, operation) {
   return action$ =>
