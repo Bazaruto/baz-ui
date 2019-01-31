@@ -39,7 +39,7 @@ export default function inputable(Wrapped) {
       return (
         <div className={groupClassName}>
           {label &&
-            <label className="control-label">
+            <label className="control-label col-form-label">
               {label}
               {required && <span className="required-asterisk"> *</span>}
             </label>
@@ -62,7 +62,7 @@ export default function inputable(Wrapped) {
               </span>
             }
           </div>
-          {messageToShow && <label className="control-label">{messageToShow}</label>}
+          {messageToShow && <small className="control-label form-text">{messageToShow}</small>}
         </div>
       );
     }

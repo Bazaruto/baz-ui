@@ -1,3 +1,5 @@
+import {EMPTY_OBJECT} from '../constants';
+
 export function copyElementAndChildrenToClipboard(elem) {
   let range;
   let sel;
@@ -30,4 +32,18 @@ export function copyElementAndChildrenToClipboard(elem) {
 
 export function changeLocation(url) {
   window.location.assign(url);
+}
+
+export function getUrlParams() {
+  const searchParamsStr = window.location.search.substring(1);
+  if (!searchParamsStr) {
+    return EMPTY_OBJECT;
+  }
+  const encodedPairs = searchParamsStr.split('&');
+  const params = {};
+  for (let i = 0; i < encodedPairs.length; i++) {
+    const [key, value] = encodedPairs[i].split('=');
+    params[key] = decodeURIComponent(value);
+  }
+  return params;
 }

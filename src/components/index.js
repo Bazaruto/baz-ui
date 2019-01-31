@@ -5,6 +5,7 @@ export { default as CurrencyInput } from './CurrencyInput';
 export { default as DateRange } from './DateRange';
 export { default as DateTimeInput } from './DateTimeInput';
 export { default as EmailInput } from './EmailInput';
+export { default as HistorySubscription } from './HistorySubscription';
 export { default as Input } from './Input';
 export { default as Inputable } from './Inputable';
 export { default as Modal } from './Modal';

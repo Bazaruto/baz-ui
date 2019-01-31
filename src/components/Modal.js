@@ -10,7 +10,7 @@ export default class Modal extends React.Component {
       <span onClick={this.handleClick}>
         <ReactBootstrapModal {...modalProps}>
           {header ? (
-            <ModalLayout header={header}>
+            <ModalLayout header={header} onClose={modalProps.onHide}>
               {children}
             </ModalLayout>
           ) : (
@@ -29,7 +29,16 @@ export const ModalLayout = (props) => {
   }
   return (
     <div>
-      <div className="modal-header"><span>{props.header}</span></div>
+      <div className="modal-header">
+        {props.header}
+        <button
+          onClick={props.onClose}
+          type="button"
+          className="close"
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
       <div className="modal-body">
         <div className={className}>
           {props.children}
