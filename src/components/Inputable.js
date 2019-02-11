@@ -1,4 +1,5 @@
 import React from 'react';
+import './inputable.scss';
 
 export default function inputable(Wrapped) {
   const displayName = getDisplayName(Wrapped);

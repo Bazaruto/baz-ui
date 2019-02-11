@@ -10,9 +10,9 @@ export default class Modal extends React.Component {
       <span onClick={this.handleClick}>
         <ReactBootstrapModal {...modalProps}>
           {header ? (
-            <ModalLayout header={header} onClose={modalProps.onHide}>
+            <Layout header={header} onClose={modalProps.onHide}>
               {children}
-            </ModalLayout>
+            </Layout>
           ) : (
             children
           )}
@@ -22,7 +22,7 @@ export default class Modal extends React.Component {
   }
 }
 
-export const ModalLayout = (props) => {
+const Layout = (props) => {
   let className = 'modal-padded-content margin-bottom'
   if (props.className) {
     className += ` ${props.className}`;
@@ -47,3 +47,5 @@ export const ModalLayout = (props) => {
     </div>
   );
 };
+
+Modal.Layout = Layout;

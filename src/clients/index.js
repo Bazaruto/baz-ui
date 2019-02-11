@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 const noop = () => {};
 
-export function createApiClient({ onError = noop, onTimeout = noop, }) {
+export function createApiClient({ crossDomain = false, baseUrl = '', onError = noop, onTimeout = noop, }) {
   const Api = {
     _timeoutMillis: 40000,
     _retryLimit: 1,
@@ -16,6 +16,15 @@ export function createApiClient({ onError = noop, onTimeout = noop, }) {
       return new Promise((resolve, reject) => {
         if (typeof options === 'string' || options instanceof String) {
           options = {url: options, type: 'GET'};
+        }
+
+        if (baseUrl) {
+          options.url = baseUrl + options.url;
+        }
+
+        if (crossDomain) {
+          options.crossDomain = true;
+          options.xhrFields = { withCredentials: true };
         }
 
         options.timeout = this._timeoutMillis;

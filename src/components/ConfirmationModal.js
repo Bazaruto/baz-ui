@@ -14,7 +14,7 @@ export default function ConfirmationModal({ show, onHide, onConfirmation, childr
       show={show}
       dialogClassName="modal-alert"
       onHide={onHide}
-      size="small"
+      size="sm"
     >
       <div className="modal-body">
         {children}

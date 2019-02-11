@@ -6,4 +6,4 @@ export { default as createReducer } from './factories/createReducer';
 
 export { default as makeClearable } from './higher-order/makeClearable';
 
-export { patchIndex, patchIndexIfExists, createIndexPatcher } from './helpers';
+export { patchIndexAt, patchIndex, patchIndexIfExists, createIndexPatcher } from './helpers';

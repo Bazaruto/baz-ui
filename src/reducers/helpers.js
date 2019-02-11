@@ -1,3 +1,10 @@
+export function patchIndexAt(index, id, patch) {
+  return {
+    ...index,
+    [id]: {...index[id], ...patch}
+  };
+}
+
 export const patchIndex = createIndexPatcher('id');
 export const patchIndexIfExists = createIndexPatcher('id', true);
 

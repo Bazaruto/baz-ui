@@ -82,7 +82,7 @@ class Select extends React.Component {
         data-identifier={dataIdentifier || name}
         className={this.divClassName}
       >
-        {label && <label className="control-label">{label}</label>}
+        {label && <label className="control-label col-form-label">{label}</label>}
         {this.props.required && <span className="required-asterisk"> *</span>}
         <ReactSelect
           className={selectClassName}
@@ -92,7 +92,7 @@ class Select extends React.Component {
           onBlur={this.props.onBlur}
           {...{options, clearable, multi, name, disabled, valueKey, labelKey, placeholder}}
         />
-        {this.messageToShow && <label className="control-label">{message}</label>}
+        {this.messageToShow && <small className="control-label form-text">{message}</small>}
         {this.props.children}
       </div>
     );
