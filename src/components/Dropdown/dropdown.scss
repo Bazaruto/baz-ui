@@ -1,13 +1,10 @@
-// DROPDOWN
 $dropdown-blue: #80bdff;
 
-.lookahead-container {
+[data-dropdown-container] {
   position: relative;
-  //display: inline-block;
 
   &.opened {
     ul {
-      //display: block;
       visibility: visible;
     }
   }

@@ -92,10 +92,7 @@ export default class SuggestionInput extends React.Component {
     const suggestions = this.getSuggestionsBy(trimmedText);
 
     return (
-      <Dropdown
-        onHide={this.handleHide}
-        autoSelect
-        startIndex={0}>
+      <Dropdown onHide={this.handleHide} autoSelect>
         <DropdownInput
           ref={input => { this.input = input }}
           onFocus={() => {

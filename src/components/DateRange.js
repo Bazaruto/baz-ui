@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'moment';
-import { formatDateTime, formatDate } from '../utils/date-utls';
+import { formatDateTime, formatDate } from '../utils/date-utils';
 import { openAtDate } from './InputDatePicker';
 
 export default class DateRange extends React.Component {

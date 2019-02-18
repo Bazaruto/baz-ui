@@ -1,5 +1,7 @@
-import Moment from 'moment';
+import Moment from 'moment-timezone';
 import * as DateFormat from '../constants/date-format';
+
+Moment.tz.setDefault('Etc/UTC');
 
 export function formatDate(date) {
   date = _ensureMoment(date);
