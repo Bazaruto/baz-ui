@@ -15,6 +15,7 @@ export { default as NumberInputToggle } from './NumberInputToggle';
 export { default as Select } from './Select';
 export { default as Spinner } from './Spinner';
 export { default as SpinnerButton } from './SpinnerButton';
+export { default as SuggestionInput } from './SuggestionInput';
 export { default as Tag } from './Tag';
 export { default as TextArea } from './TextArea';
 export { default as TimePicker } from './TimePicker';
