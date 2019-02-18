@@ -21,17 +21,18 @@ const defaultProps = {
 };
 
 export const DropdownInput = React.forwardRef(({namespace, refs, expanded, focusedIndex, onToggle, ...props}, ref) => {
+  const listboxId =`${namespace}-menu-listbox`;
   return (
     <div
       id={`${namespace}-input-combobox`}
       role="combobox"
       aria-expanded={expanded}
-      aria-owns={`${namespace}-menu-listbox`}
+      aria-owns={listboxId}
       aria-haspopup="listbox">
       <Input
         {...props}
         aria-autocomplete="list"
-        aria-controls="menu-listbox"
+        aria-controls={listboxId}
         aria-activedescendant={focusedIndex > -1 ? `result-${focusedIndex}` : null}
         autoComplete="off"
         inputRef={input => {
