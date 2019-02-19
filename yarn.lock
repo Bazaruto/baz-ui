@@ -1244,11 +1244,6 @@ isexe@^2.0.0:
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
   integrity sha1-6PvzdNxVb/iUehDcsFctYz8s+hA=
 
-jquery@^3.3.1:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
-  integrity sha512-Ubldcmxp5np52/ENotGxlLe6aGMvmF4R8S6tZjsP6Knsaxd/xp3Zrh50cG93lR6nPXyUFwzN3ZSOQI0wRJNdGg==
-
 js-levenshtein@^1.1.3:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/js-levenshtein/-/js-levenshtein-1.1.6.tgz#c6cee58eb3550372df8deb85fad5ce66ce01d59d"
@@ -1317,7 +1312,7 @@ locate-path@^2.0.0:
     p-locate "^2.0.0"
     path-exists "^3.0.0"
 
-lodash@4.17.11, lodash@^4.17.10, lodash@^4.17.11:
+lodash@^4.17.10, lodash@^4.17.11:
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
   integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
@@ -1381,18 +1376,6 @@ mocha@5.2.0:
     minimatch "3.0.4"
     mkdirp "0.5.1"
     supports-color "5.4.0"
-
-moment-timezone@0.5.23:
-  version "0.5.23"
-  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.23.tgz#7cbb00db2c14c71b19303cb47b0fb0a6d8651463"
-  integrity sha512-WHFH85DkCfiNMDX5D3X7hpNH3/PUhjTGcD0U1SgfBGZxJ3qUmJh5FdvaFjcClxOvB3rzdfj4oRffbI38jEnC1w==
-  dependencies:
-    moment ">= 2.9.0"
-
-"moment@>= 2.9.0", moment@^2.24.0:
-  version "2.24.0"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
-  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
 
 ms@2.0.0:
   version "2.0.0"
@@ -1581,20 +1564,10 @@ punycode@^2.1.0:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-rails-ujs@^5.2.2:
-  version "5.2.2"
-  resolved "https://registry.yarnpkg.com/rails-ujs/-/rails-ujs-5.2.2.tgz#ab01dd087a323975637b50e93e7afcc0f9068568"
-  integrity sha512-tJl7MdysGrQEKmwF7BJkz5XwUOkdnI9E7SvSbT39yO7pdFc96D4hWKm6Sb15pU4n5mt4rLPb/6kkyTQujP1k7Q==
-
 react-is@^16.8.1:
   version "16.8.2"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.2.tgz#09891d324cad1cb0c1f2d91f70a71a4bee34df0f"
   integrity sha512-D+NxhSR2HUCjYky1q1DwpNUD44cDpUXzSmmFyC3ug1bClcU/iDNy0YNn1iwme28fn+NFhpA13IndOd42CrFb+Q==
-
-react_ujs@^2.4.4:
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/react_ujs/-/react_ujs-2.4.4.tgz#49bac535d24024a96b0a35d7514d18188aea42bc"
-  integrity sha512-RON6mgV+I3s6KkmvxTQi+WGuoLbhZ+TzRat06EE/RHFvzU+Na1Eom6XnesQeOP7WCrTZGOdcZEPP0P7QrJrHfg==
 
 regenerate-unicode-properties@^7.0.0:
   version "7.0.0"
