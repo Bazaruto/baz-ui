@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactBootstrapModal from 'react-bootstrap/lib/Modal';
+import { Modal as ReactBootstrapModal } from 'react-bootstrap';
 
 export default class Modal extends React.Component {
   handleClick = e => e.stopPropagation();
