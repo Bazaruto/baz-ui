@@ -1,4 +1,5 @@
 import {EMPTY_ARRAY} from '../constants';
+import _ from 'lodash';
 
 export function findWithKeysMatching(objectsToMatch, key, query='') {
   if (query.length < 2) {
