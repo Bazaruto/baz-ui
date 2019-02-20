@@ -1,6 +1,5 @@
 import $ from 'jquery';
-
-const noop = () => {};
+import {noop} from '../constants';
 
 export function createApiClient({ crossDomain = false, baseUrl = '', onError = noop, onTimeout = noop, }) {
   const Api = {
@@ -43,7 +42,7 @@ export function createApiClient({ crossDomain = false, baseUrl = '', onError = n
               return;
             }
 
-            onTimeout(xhr);
+            onTimeout(options);
           } else {
             onError(xhr);
           }

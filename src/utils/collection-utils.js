@@ -26,3 +26,10 @@ export function findWithKeysMatching(objectsToMatch, key, query='') {
   }
   return matches;
 }
+
+export function toSnakeCase(object) {
+  return Object.keys(object).reduce((acc, key) => {
+    acc[_.snakeCase(key)] = object[key];
+    return acc;
+  }, {});
+}
