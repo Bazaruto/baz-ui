@@ -3,7 +3,7 @@ import {noop} from '../constants';
 export function createAjaxStatusMiddleware({ onShowBusy = noop,
                                              onHideBusy = noop,
                                              onShowSuccess = noop }) {
-  return store => next => action => {
+  return () => next => action => {
     if (hasOperation(action)) {
       const { operation } = action.meta;
       if (!isResponse(action)) {

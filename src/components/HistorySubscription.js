@@ -1,7 +1,13 @@
-import React, {Fragment} from 'react'
+import React from 'react'
+import PropTypes from 'prop-types';
 import {getUrlSearchParams} from '../utils/dom-utils';
 
 export default class HistorySubscription extends React.Component {
+  static propTypes = {
+    onMount: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
+  };
+
   componentDidMount() {
     this.props.onMount(getUrlSearchParams());
     window.addEventListener('popstate', this.handleHistoryChange);

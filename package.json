@@ -3,13 +3,11 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "repository": "git@github.com:Bazaruto/shared-ui-poc.git",
-  "author": "Markus Coetzee <mks.coetzee@gmail.com>",
-  "license": "MIT",
+  "license": "UNLICENSED",
   "private": true,
   "scripts": {
     "test": "node_modules/.bin/mocha",
-    "lint": "eslint -c ./.eslintrc.json --quiet src",
-    "dev": "./bin/webpack-dev-server"
+    "lint": "eslint -c ./.eslintrc.json --quiet src"
   },
   "dependencies": {
     "seamless-immutable": "7.1.3"

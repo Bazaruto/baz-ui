@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Dropdown, { DropdownInput, DropdownSearchResultsMenu } from './Dropdown';
 import { Subject } from 'rxjs';
@@ -113,7 +113,7 @@ export default class SuggestionInput extends React.Component {
                 <span
                   className="close"
                   style={{ fontWeight: 500 }}
-                  onClick={ev => {
+                  onClick={() => {
                     this.input.focus();
                     this.props.onSelect({})
                   }}>
