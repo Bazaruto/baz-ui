@@ -1,1 +1,1 @@
-export { default as suggest } from './suggest';
+export { suggestableBy } from './suggestable-by';

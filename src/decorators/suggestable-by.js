@@ -1,8 +1,8 @@
 import SuggestionHelper from './SuggestionHelper';
 
-export default function suggest(fieldToMatch) {
+export function suggestableBy(fieldToMatch) {
   return function (elementDescriptor) {
-    const { kind, key, descriptor } = elementDescriptor;
+    const { key, descriptor } = elementDescriptor;
 
     const initializer = function() {
       const originalServiceMethod = this[key].bind(this);
