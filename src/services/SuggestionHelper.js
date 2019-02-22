@@ -7,15 +7,15 @@ export default class SuggestionHelper {
   awaitingSuggestionData = null;
   loadFailed = false;
 
-  constructor(loadSuggestionData, fieldToMatch) {
-    this.loadSuggestionData = loadSuggestionData;
+  constructor({ source, fieldToMatch }) {
+    this.source = source;
     this.fieldToMatch = fieldToMatch;
   }
 
   initSuggestions() {
     if (!this.awaitingSuggestionData) {
       this.awaitingSuggestionData = [];
-      this.loadSuggestionData()
+      this.source()
         .then(data => {
           this.suggestionData = _.sortBy(data, this.fieldToMatch);
           this.awaitingSuggestionData.forEach(pending => pending[0]());
