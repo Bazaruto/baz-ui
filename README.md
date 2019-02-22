@@ -1,1 +1,1 @@
-# shared-ui-poc
+# baz-ui
