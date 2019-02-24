@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FocusContext } from './FocusContext';
 
 export class MenuItem extends React.Component {
   static propTypes = {
     index: PropTypes.number.isRequired,
     onSelect: PropTypes.func.isRequired,
+    onMouseEnter: PropTypes.func.isRequired,
+    focused: PropTypes.bool.isRequired,
     selected: PropTypes.bool.isRequired,
     href: PropTypes.string,
     target: PropTypes.string,
@@ -17,13 +18,14 @@ export class MenuItem extends React.Component {
   };
 
   handleMouseEnter = () => {
-    this.context.updateHoverIndex(this.props.index);
+    this.props.onMouseEnter(this.props.index);
   }
 
+  setRef = ref => this.container = ref;
+
   render() {
-    const { index } = this.props;
-    let className = '';
-    const focused = this.context.keyboardFocusIndex === index;
+    const { index, focused } = this.props;
+    let className;
     if (focused) {
       className = 'menu-item-focused';
     } else if (this.props.selected) {
@@ -35,9 +37,7 @@ export class MenuItem extends React.Component {
           id={`result-${index}`}
           role="option"
           aria-selected={focused}
-          ref={ref => {
-            this.container = ref;
-          }}
+          ref={this.setRef}
           className={className}
           href={this.props.href}
           target={this.props.target}>
@@ -47,5 +47,3 @@ export class MenuItem extends React.Component {
     );
   }
 }
-
-MenuItem.contextType = FocusContext;

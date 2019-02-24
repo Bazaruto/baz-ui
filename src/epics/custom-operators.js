@@ -1,16 +1,22 @@
-import { Observable, from, of, empty } from 'rxjs';
-import { flatMap, switchMap, pluck, map, catchError } from 'rxjs/operators';
+import { Observable, from, of, empty, asyncScheduler } from 'rxjs';
+import { flatMap, switchMap, pluck, map, catchError, throttleTime } from 'rxjs/operators';
 import _ from 'lodash';
 
-export const pluckPayload = (...keys) => pluck('payload', ...keys);
+export function trailingThrottle(millis) {
+  return throttleTime(millis, asyncScheduler, { leading: true, trailing: true });
+}
 
-export const flatAjax = (apiOperation) => {
+export function pluckPayload(...keys) {
+  return pluck('payload', ...keys);
+}
+
+export function flatAjax(apiOperation) {
   return flatMap(createApiOperationMapper(apiOperation));
-};
+}
 
-export const switchAjax = (apiOperation) => {
+export function switchAjax(apiOperation) {
   return switchMap(createApiOperationMapper(apiOperation));
-};
+}
 
 function createApiOperationMapper(apiOperation) {
   return action => {

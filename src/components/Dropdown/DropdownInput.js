@@ -33,16 +33,15 @@ export const DropdownInput = React.forwardRef(({namespace, refs, expanded, focus
         {...props}
         aria-autocomplete="list"
         aria-controls={listboxId}
-        aria-activedescendant={focusedIndex > -1 ? `result-${focusedIndex}` : null}
+        aria-activedescendant={expanded && focusedIndex > -1 ? `result-${focusedIndex}` : null}
         autoComplete="off"
         inputRef={input => {
           ref && ref(input);
           refs.toggle = input;
         }}
         onFocus={ev => {
-          refs.toggle.focus();
           props.onFocus && props.onFocus(ev);
-          onToggle();
+          !expanded && onToggle();
         }}
       />
     </div>

@@ -3,7 +3,7 @@ $dropdown-blue: #80bdff;
 [data-dropdown-container] {
   position: relative;
 
-  &.opened {
+  &.dd-expanded {
     ul {
       visibility: visible;
     }

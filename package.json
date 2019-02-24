@@ -7,7 +7,8 @@
   "private": true,
   "scripts": {
     "test": "node_modules/.bin/mocha",
-    "lint": "eslint -c ./.eslintrc.json --quiet src"
+    "lint": "node_modules/.bin/eslint -c ./.eslintrc.json --quiet",
+    "lint:all": "yarn lint src"
   },
   "dependencies": {
     "seamless-immutable": "7.1.3"

@@ -6,12 +6,12 @@ import { debounceTime, map, filter, tap, distinctUntilChanged, switchMap } from 
 import {EMPTY_ARRAY} from '../constants';
 import _ from 'lodash';
 
-export default class SuggestionInput extends React.Component {
+export default class SuggestionSelect extends React.Component {
   static propTypes = {
-    selectedValue: PropTypes.oneOfType([
+    value: PropTypes.oneOfType([
       PropTypes.string, PropTypes.number
     ]),
-    onSelect: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
     isSelected: PropTypes.func.isRequired,
     getSuggestions: PropTypes.func.isRequired,
     renderSuggestion: PropTypes.func.isRequired,
@@ -52,7 +52,7 @@ export default class SuggestionInput extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.selectedValue !== prevProps.selectedValue) {
+    if (this.props.value !== prevProps.value) {
       this.handleTextChange(this.getSelectedTextValue());
     }
   }
@@ -63,7 +63,7 @@ export default class SuggestionInput extends React.Component {
 
   handleSelect = sug => {
     this.setState({ text: this.getSelectedTextValue() });
-    this.props.onSelect(sug);
+    this.props.onChange(sug);
   }
 
   handleHide = () => {
@@ -73,7 +73,7 @@ export default class SuggestionInput extends React.Component {
     }
     this.setState({ text: '' });
     if (selectedValue) {
-      this.props.onSelect({})
+      this.props.onChange({})
     }
   }
 
@@ -85,7 +85,8 @@ export default class SuggestionInput extends React.Component {
   }
 
   getSelectedTextValue() {
-    return (this.props.selectedValue || '') + '';
+    const { value } = this.props;
+    return _.isNil(value) ? '' : value + '';
   }
 
   getSuggestionsBy(text) {
@@ -103,7 +104,7 @@ export default class SuggestionInput extends React.Component {
     const selectedValue = this.getSelectedTextValue();
 
     return (
-      <Dropdown onHide={this.handleHide} autoSelect>
+      <Dropdown onHide={this.handleHide}>
         <DropdownInput
           ref={input => { this.input = input }}
           value={state.text}
@@ -116,7 +117,7 @@ export default class SuggestionInput extends React.Component {
               onExpandClick={() => this.input.focus()}
               onCloseClick={() => {
                 this.input.focus();
-                this.props.onSelect({});
+                this.props.onChange({});
               }}
             />
           )}
