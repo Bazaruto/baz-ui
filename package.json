@@ -1,8 +1,8 @@
 {
-  "name": "shared-ui-poc",
+  "name": "baz-ui",
   "version": "1.0.0",
   "main": "src/index.js",
-  "repository": "git@github.com:Bazaruto/shared-ui-poc.git",
+  "repository": "git@github.com:Bazaruto/baz-ui.git",
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
