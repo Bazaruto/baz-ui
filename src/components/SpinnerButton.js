@@ -19,18 +19,20 @@ const propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
   type: PropTypes.string,
+  dataIdentifier: PropTypes.string,
 };
 
 const defaultProps = {
   btnType: 'primary'
 }
 
-export default function SpinnerButton({ children, btnType, className, submitting, disabled, ...buttonProps }) {
+export default function SpinnerButton({ children, btnType, className, submitting, disabled, dataIdentifier, ...buttonProps }) {
   return (
     <button
       {...buttonProps}
       className={`btn btn-${btnType} loader-button ${className || ''} ${submitting ? 'loading' : ''}`}
       disabled={submitting || disabled}
+      data-identifier={dataIdentifier}
     >
       {children}
       <span className="spinner-container">
