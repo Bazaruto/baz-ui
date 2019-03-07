@@ -15,6 +15,7 @@ export { default as Select } from './Select';
 export { default as Spinner } from './Spinner';
 export { default as SpinnerButton } from './SpinnerButton';
 export { default as SuggestionSelect } from './SuggestionSelect';
+export { default as Tabs, Tab } from './Tabs';
 export { default as Tag } from './Tag';
 export { default as TextArea } from './TextArea';
 export { default as TimePicker } from './TimePicker';
