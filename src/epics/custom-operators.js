@@ -2,6 +2,8 @@ import { Observable, from, of, empty, asyncScheduler } from 'rxjs';
 import { flatMap, switchMap, pluck, map, catchError, throttleTime } from 'rxjs/operators';
 import _ from 'lodash';
 
+export { ofType } from 'redux-observable';
+
 export function trailingThrottle(millis) {
   return throttleTime(millis, asyncScheduler, { leading: true, trailing: true });
 }

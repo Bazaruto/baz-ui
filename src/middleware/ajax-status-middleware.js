@@ -12,7 +12,7 @@ export function createAjaxStatusMiddleware({ onShowBusy = noop,
         }
       } else {
         onHideBusy();
-        if (!action.error) {
+        if (!action.error && operation.done) {
           onShowSuccess(operation.done);
         }
       }

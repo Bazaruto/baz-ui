@@ -21,6 +21,7 @@
     "react": ">= 16.6.0",
     "react-bootstrap": ">= 0.31.5",
     "react-select": "^1.2.1",
+    "redux-observable": "^1.0.0",
     "reselect": ">= 2.5.3",
     "rxjs": ">= 6.3.0"
   },

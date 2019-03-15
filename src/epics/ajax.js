@@ -1,5 +1,5 @@
 import { timer, empty } from 'rxjs';
-import { filter, groupBy, flatMap, debounce } from 'rxjs/operators';
+import { filter, groupBy, flatMap, debounceTime } from 'rxjs/operators';
 import { switchAjax, flatAjax } from './custom-operators'
 
 export function ajaxEpic(type, operation) {
@@ -18,13 +18,21 @@ export function switchAjaxEpic(type, operation) {
       groupBy(a => a.meta && a.meta.group || 'none'),
       flatMap(groupedAction$ =>
         groupedAction$.pipe(
-          // Conditional debouncing
-          debounce(a => {
-            if (a.meta && a.meta.debounceTime) {
-              return timer(a.meta.debounceTime);
-            }
-            return empty();
-          }),
+          switchAjax(operation)
+        )
+      )
+    );
+}
+
+export function debouncedAjaxEpic(type, operation, debounceMs=400) {
+  return action$ =>
+    action$.pipe(
+      filter(a => a.type === type),
+      // Conditional grouping
+      groupBy(a => a.meta && a.meta.group || 'none'),
+      flatMap(groupedAction$ =>
+        groupedAction$.pipe(
+          debounceTime(debounceMs),
           switchAjax(operation)
         )
       )
