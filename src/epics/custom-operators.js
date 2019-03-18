@@ -12,63 +12,72 @@ export function pluckPayload(...keys) {
   return pluck('payload', ...keys);
 }
 
-export function flatAjax(apiOperation) {
-  return flatMap(createApiOperationMapper(apiOperation));
-}
+export function createAjaxOperators(options = { errorSuffix: 'ERROR' }) {
+  function flatAjax(apiOperation) {
+    return flatMap(createApiOperationMapper(apiOperation));
+  }
 
-export function switchAjax(apiOperation) {
-  return switchMap(createApiOperationMapper(apiOperation));
-}
+  function switchAjax(apiOperation) {
+    return switchMap(createApiOperationMapper(apiOperation));
+  }
 
-function createApiOperationMapper(apiOperation) {
-  return action => {
-    const fsa = isFSA(action);
-    const payload = fsa ? action.payload : action;
-    const meta = { args: payload };
-    // Transfer the existing operation metadata
-    if (fsa && _.get(action, 'meta.operation')) {
-      meta.operation = action.meta.operation;
-    }
+  function createApiOperationMapper(apiOperation) {
+    return action => {
+      const fsa = isFSA(action);
+      const payload = fsa ? action.payload : action;
+      const meta = { args: payload };
+      // Transfer the existing operation metadata
+      if (fsa && _.get(action, 'meta.operation')) {
+        meta.operation = action.meta.operation;
+      }
 
-    let ajax$ = apiOperation(payload);
-    if (!ajax$) {
-      return empty();
-    }
+      let ajax$ = apiOperation(payload);
+      if (!ajax$) {
+        return empty();
+      }
 
-    if (!(ajax$ instanceof Observable)) {
-      ajax$ = from(ajax$);
-    }
+      if (!(ajax$ instanceof Observable)) {
+        ajax$ = from(ajax$);
+      }
 
-    ajax$ = ajax$.pipe(
-      map(ajaxResponse => {
-        // Add normalized entities to the action metadata
-        if (ajaxResponse && ajaxResponse.normalized) {
-          const { normalized } = ajaxResponse;
-          meta.entities = normalized.entities;
-          if (_.isArray(normalized.result)) {
-            meta.ids = normalized.result;
-          }
-          ajaxResponse = ajaxResponse.response;
-        }
-        return { payload: ajaxResponse, meta };
-      }),
-      catchError(err => {
-        return of({ error: true, payload: err, meta })
-      })
-    );
-
-    if (fsa) {
       ajax$ = ajax$.pipe(
-        map(res => ({
-          ...res,
-          type: `${action.type}_${res.error ? 'ERROR' : 'RESPONSE'}`
-        }))
+        map(ajaxResponse => {
+          // Add normalized entities to the action metadata
+          if (ajaxResponse && ajaxResponse.normalized) {
+            const { normalized } = ajaxResponse;
+            meta.entities = normalized.entities;
+            if (_.isArray(normalized.result)) {
+              meta.ids = normalized.result;
+            }
+            ajaxResponse = ajaxResponse.response;
+          }
+          return { payload: ajaxResponse, meta };
+        }),
+        catchError(err => {
+          return of({ error: true, payload: err, meta })
+        })
       );
-    }
 
-    return ajax$;
-  };
+      if (fsa) {
+        ajax$ = ajax$.pipe(
+          map(res => ({
+            ...res,
+            type: `${action.type}_${res.error ? options.errorSuffix : 'RESPONSE'}`
+          }))
+        );
+      }
+
+      return ajax$;
+    };
+  }
+
+  return {
+    flatAjax,
+    switchAjax
+  }
 }
+
+export const { flatAjax, switchAjax } = createAjaxOperators();
 
 // Flux Standard Action (FSA) check
 function isFSA(data) {

@@ -1,4 +1,3 @@
-import { timer, empty } from 'rxjs';
 import { filter, groupBy, flatMap, debounceTime } from 'rxjs/operators';
 import { switchAjax, flatAjax } from './custom-operators'
 
