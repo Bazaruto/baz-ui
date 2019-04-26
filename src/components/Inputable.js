@@ -31,7 +31,7 @@ export default function inputable(Wrapped) {
     };
 
     render() {
-      const { label, message, required, showMessage, button, panel, ...rest } = this.props;
+      const { label, message, required, showMessage, button, panel, infoSection, ...rest } = this.props;
       const controlledInput = !!this.props.onChange;
 
       const messageToShow = showMessage && message;
@@ -64,6 +64,7 @@ export default function inputable(Wrapped) {
             }
           </div>
           {messageToShow && <small className="control-label form-text">{messageToShow}</small>}
+          {infoSection}
         </div>
       );
     }
