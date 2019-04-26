@@ -5,7 +5,6 @@ import {EMPTY_ARRAY} from '../constants';
 export default class SuggestionHelper {
   suggestionData = null;
   awaitingSuggestionData = null;
-  loadFailed = false;
 
   constructor({ source, fieldToMatch }) {
     this.source = source;
@@ -23,15 +22,11 @@ export default class SuggestionHelper {
         })
         .catch(() => {
           this.awaitingSuggestionData.forEach(pending => pending[1]());
-          this.awaitingSuggestionData = EMPTY_ARRAY;
-          this.loadFailed = true;
+          this.awaitingSuggestionData = null;
         })
     }
 
     return new Promise((resolve, reject) => {
-      if (this.loadFailed) {
-        return reject();
-      }
       this.awaitingSuggestionData.push([resolve, reject]);
     });
   }
