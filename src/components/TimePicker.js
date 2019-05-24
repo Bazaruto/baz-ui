@@ -71,27 +71,27 @@ class TimePicker extends React.Component {
 
   render() {
     return (
-        <div className="timepicker-wrapper">
-          <div className="col-lg-4 no-padding">
-            <Select
-                options={this.hourOptions}
-                value={this.hours}
-                name="hours"
-                onChange={this.handleHoursChange}
-                clearable={false}
-                searchable />
-          </div>
-          <div className="col-lg-1 timepicker-separator">:</div>
-          <div className="col-lg-4 no-padding">
-            <Select
-                options={this.minuteOptions}
-                value={this.minutes}
-                name="minutes"
-                onChange={this.handleMinutesChange}
-                clearable={false}
-                searchable />
-          </div>
-        </div>);
+      <div className="timepicker-wrapper row no-margin">
+        <div className="col-sm-4 no-padding">
+          <Select
+            options={this.hourOptions}
+            value={this.hours}
+            name="hours"
+            onChange={this.handleHoursChange}
+            clearable={false}
+            searchable />
+        </div>
+        <div className="col-sm-1 timepicker-separator">:</div>
+        <div className="col-sm-4 no-padding">
+          <Select
+            options={this.minuteOptions}
+            value={this.minutes}
+            name="minutes"
+            onChange={this.handleMinutesChange}
+            clearable={false}
+            searchable />
+        </div>
+      </div>);
   }
 }
 

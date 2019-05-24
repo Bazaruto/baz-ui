@@ -14,16 +14,21 @@ const propTypes = {
   values: PropTypes.array,
   onChange: PropTypes.func.isRequired,
   options: PropTypes.array.isRequired,
+  valueKey: PropTypes.string.isRequired,
+  labelKey: PropTypes.string.isRequired,
   name: PropTypes.string,
   message: PropTypes.string,
   showMessage: PropTypes.bool,
   includeNone: PropTypes.bool,
   dataIdentifier: PropTypes.string,
   searchable: PropTypes.bool,
+  displayOptionLabel: PropTypes.bool,
 };
 
 const defaultProps = {
   searchable: false,
+  valueKey: 'value',
+  labelKey: 'label',
 }
 
 export default class MultiSelect extends Component {
@@ -31,7 +36,7 @@ export default class MultiSelect extends Component {
     super(props);
 
     this.options = props.includeNone
-      ? [{ value: 'None', label: 'None' }].concat(props.options)
+      ? [{ [this.props.valueKey]: 'None', [this.props.labelKey]: 'None' }].concat(props.options)
       : props.options;
   }
 
@@ -52,21 +57,25 @@ export default class MultiSelect extends Component {
     this.props.onChange(getChangeValue(newValues, this.props.name));
   };
 
+  getLabelByValue(value) {
+    return this.options.find(o => o[this.props.valueKey] === value)[this.props.labelKey];
+  }
+
   render() {
-    const { values, message, showMessage, dataIdentifier } = this.props;
+    const { values, message, showMessage, dataIdentifier, displayOptionLabel, valueKey, labelKey } = this.props;
     return (
       <Select
         value={isNone(values) ? 'None' : undefined}
         onChange={this.handleChange}
         options={this.options}
-        {...{message, showMessage, dataIdentifier }}
+        {...{valueKey, labelKey, message, showMessage, dataIdentifier}}
         searchable={this.props.searchable}
       >
         <div className="margin-top">
           {_.map(values, (val, index) =>
             val ? (
               <Tag
-                label={val}
+                label={displayOptionLabel ? this.getLabelByValue(val) : val}
                 value={val}
                 onRemove={this.handleRemove}
                 key={index}

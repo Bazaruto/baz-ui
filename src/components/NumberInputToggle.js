@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Inputable from './Inputable';
+import Input from './Input';
 
 const propTypes = {
   id: PropTypes.string,

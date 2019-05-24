@@ -18,7 +18,6 @@ const propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
   type: PropTypes.string,
-  dataIdentifier: PropTypes.string,
 };
 
 const defaultProps = {
