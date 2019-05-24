@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import 'react-select/dist/react-select.css';
 import ReactSelect from 'react-select';
 import _ from 'lodash';
 import { getChangeValue } from './Inputable'
