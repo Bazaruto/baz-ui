@@ -49,10 +49,10 @@ export default function inputable(Wrapped) {
       return (
         <div className={groupClassName}>
           {label &&
-          <label className="control-label" htmlFor={inputableId}>
-            {label}
-            {required && <span className="required-asterisk"> *</span>}
-          </label>
+            <label className="control-label col-form-label" htmlFor={inputableId}>
+              {label}
+              {required && <span className="required-asterisk"> *</span>}
+            </label>
           }
           <div className={'relative' + (button ? ' input-group' : '')}>
             <Wrapped
@@ -63,17 +63,17 @@ export default function inputable(Wrapped) {
               inputRef={this.setInputRef}
             />
             {button &&
-            <span className="input-group-btn">
+              <span className="input-group-btn input-group-append">
                 {button}
               </span>
             }
             {panel &&
-            <span className="inputable-panel">
+              <span className="inputable-panel">
                 {panel}
               </span>
             }
           </div>
-          {messageToShow && <label className="control-label">{messageToShow}</label>}
+          {messageToShow && <small className="control-label form-text">{messageToShow}</small>}
           {infoSection}
         </div>
       );
