@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import './busy-overlay.scss';
 
 BusyOverlay.propTypes = {
   show: PropTypes.bool,

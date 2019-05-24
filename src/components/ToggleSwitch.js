@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import WithTooltip from './WithTooltip';
 import { getChangeValue } from './Inputable';
-import './toggle-switch.scss';
 
 const propTypes = {
   value: PropTypes.bool.isRequired,
