@@ -1,15 +1,23 @@
 import React from 'react';
-import './inputable.scss';
 
 export default function inputable(Wrapped) {
   const displayName = getDisplayName(Wrapped);
 
   class Inputable extends React.Component {
-    handleChange = change => {
-      if (change && change.target && change.target.value !== undefined) {
-        change = change.target.value;
+    constructor(props) {
+      super(props);
+      this._id = generateInternalId();
+    }
+
+    handleChange = eventOrUpdate => {
+      let change = isEvent(eventOrUpdate) ? eventOrUpdate.target.value : eventOrUpdate;
+      const { onChange, name, index } = this.props;
+      change = getChangeValue(change, name); // Conditionally convert to object with name as key
+      if (index === undefined) {
+        onChange(change);
+        return;
       }
-      this.props.onChange(getChangeValue(change, this.props.name));
+      onChange(change, index);
     };
 
     focus() {
@@ -31,39 +39,41 @@ export default function inputable(Wrapped) {
     };
 
     render() {
-      const { label, message, required, showMessage, button, panel, infoSection, ...rest } = this.props;
+      const { id, label, message, required, showMessage, button, panel, infoSection, ...rest } = this.props;
       const controlledInput = !!this.props.onChange;
 
+      const inputableId = id || `${this._id}-inputable`;
       const messageToShow = showMessage && message;
       const groupClassName = 'form-group' + (messageToShow ? ' has-error' : '');
 
       return (
         <div className={groupClassName}>
           {label &&
-            <label className="control-label col-form-label">
-              {label}
-              {required && <span className="required-asterisk"> *</span>}
-            </label>
+          <label className="control-label" htmlFor={inputableId}>
+            {label}
+            {required && <span className="required-asterisk"> *</span>}
+          </label>
           }
           <div className={'relative' + (button ? ' input-group' : '')}>
             <Wrapped
               {...rest}
+              id={inputableId}
               onChange={controlledInput ? this.handleChange : undefined}
               controlled={controlledInput}
               inputRef={this.setInputRef}
             />
             {button &&
-              <span className="input-group-btn input-group-append">
+            <span className="input-group-btn">
                 {button}
               </span>
             }
             {panel &&
-              <span className="inputable-panel">
+            <span className="inputable-panel">
                 {panel}
               </span>
             }
           </div>
-          {messageToShow && <small className="control-label form-text">{messageToShow}</small>}
+          {messageToShow && <label className="control-label">{messageToShow}</label>}
           {infoSection}
         </div>
       );
@@ -79,4 +89,13 @@ export function getChangeValue(value, name) {
 
 function getDisplayName(Wrapped) {
   return Wrapped.displayName || Wrapped.name || (typeof Wrapped === 'string' ? Wrapped : 'Unknown');
+}
+
+function isEvent(eventOrUpdate) {
+  return !!eventOrUpdate && !!eventOrUpdate.target && eventOrUpdate.target.hasOwnProperty('value');
+}
+
+let counter = 0;
+export function generateInternalId() {
+  return ++counter;
 }

@@ -7,6 +7,7 @@ import $ from 'jquery';
 import '../libs/bootstrap-datetimepicker.min';
 
 const propTypes = {
+  id: PropTypes.string,
   startDate: PropTypes.string,
   minDate: PropTypes.string,
   maxDate: PropTypes.string,
@@ -128,6 +129,7 @@ export default class InputDatePicker extends React.Component {
     return (
       <span className="date-time-input-container">
         <input
+          id={this.props.id}
           ref={this.handleRef}
           type="text"
           className="form-control"

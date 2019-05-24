@@ -8,6 +8,7 @@ import _ from 'lodash';
 
 export default class SuggestionSelect extends React.Component {
   static propTypes = {
+    id: PropTypes.string,
     value: PropTypes.oneOfType([
       PropTypes.string, PropTypes.number
     ]),
@@ -106,6 +107,7 @@ export default class SuggestionSelect extends React.Component {
     return (
       <Dropdown onHide={this.handleHide}>
         <DropdownInput
+          id={props.id}
           ref={input => { this.input = input }}
           value={state.text}
           onChange={this.handleTextChange}

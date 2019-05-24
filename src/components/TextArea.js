@@ -4,6 +4,7 @@ import React from 'react';
 import _ from 'lodash';
 
 const propTypes = {
+  id: PropTypes.string,
   onChange: PropTypes.func,
   value: PropTypes.oneOfType([
     PropTypes.string,

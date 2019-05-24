@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { NumberInput } from './NumberInput';
 import Inputable from './Inputable';
 
 const propTypes = {
+  id: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.oneOfType([
     PropTypes.string,
@@ -16,46 +16,20 @@ const propTypes = {
   message: PropTypes.string,
 };
 
-class NumberInputToggle extends Component {
-  handleIncrease = () => {
-    const { value, onChange } = this.props;
-    onChange(value + 1);
-  };
-
-  handleDecrease = () => {
-    const { value, onChange } = this.props;
-    if (!value) {
-      return;
-    }
-    onChange(value - 1);
-  };
-
-  render() {
-    const { value, name, inlineLabel, onChange } = this.props;
-    return (
-      <div className="number-input-toggle-container">
-        <div className="number-input-toggle">
-          <div className="input-group light-theme">
-            <NumberInput
-              className="form-control"
-              onChange={onChange}
-              value={value}
-              name={name}
-            />
-            <div className="input-group-btn-vertical">
-              <button data-id={`${name}-incr`} className="btn blank-button btn-default" onClick={this.handleIncrease}>▲</button>
-              <button data-id={`${name}-decr`} className="btn blank-button btn-default" onClick={this.handleDecrease}>▼</button>
-            </div>
-          </div>
-        </div>
-        {inlineLabel &&
-          <div className="toggle-inline-label">
-            {inlineLabel}
-          </div>
-        }
+function NumberInputToggle(props) {
+  const { id, inlineLabel, ...rest } = props;
+  return (
+    <div className="number-input-toggle-container">
+      <div className="number-input-toggle">
+        <Input id={id} type="number" {...rest} />
       </div>
-    );
-  }
+      {inlineLabel &&
+        <label htmlFor={id} className="toggle-inline-label">
+          {inlineLabel}
+        </label>
+      }
+    </div>
+  );
 }
 
 NumberInputToggle = Inputable(NumberInputToggle);

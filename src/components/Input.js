@@ -4,6 +4,7 @@ import React from 'react';
 import _ from 'lodash';
 
 const propTypes = {
+  id: PropTypes.string,
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
   value: PropTypes.oneOfType([
@@ -23,6 +24,7 @@ const propTypes = {
   dataIdentifier: PropTypes.string,
   maxLength: PropTypes.number,
   placeholder: PropTypes.string,
+  index: PropTypes.number,
 };
 
 const defaultProps = {
@@ -33,13 +35,20 @@ const defaultProps = {
   type: 'text',
 };
 
-export function Input({ type, controlled, value, dataIdentifier, inputRef, ...rest }) {
+export function Input({ type, onChange, controlled, value, dataIdentifier, inputRef, ...rest }) {
+  function handleChange(ev) {
+    if (!onChange) return;
+    let val = ev.target.value;
+    val = type === 'number' ? ensurePositiveNumber(val) : val;
+    onChange(val);
+  }
   return (
     <input
       type={type}
       value={controlled && _.isNil(value) ? '' : value}
       data-identifier={dataIdentifier}
       ref={inputRef}
+      onChange={handleChange}
       {...rest}
     />
   );
@@ -49,3 +58,9 @@ const Inputable = inputable(Input);
 Inputable.propTypes = propTypes;
 Inputable.defaultProps = defaultProps;
 export default Inputable;
+
+function ensurePositiveNumber(amount) {
+  if (amount === '') return '';
+  amount = parseInt(amount, 10);
+  return isNaN(amount) || amount < 0 ? 0 : amount;
+}
