@@ -32,7 +32,6 @@ const defaultProps = {
 function TextArea({ controlled, value, dataIdentifier, inputRef, ...rest }) {
   return (
     <textarea
-      type="text"
       value={controlled && _.isNil(value) ? '' : value}
       data-identifier={dataIdentifier}
       ref={inputRef}
