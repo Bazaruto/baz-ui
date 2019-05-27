@@ -4,7 +4,6 @@ import { Subject, fromEvent } from 'rxjs';
 import { filter, throttleTime, tap } from 'rxjs/operators';
 import { trailingThrottle } from '../../epics/custom-operators';
 import { KEYS, isDownArrow, isUpArrow, handleArrowKey, generateId } from './utils';
-import './dropdown.scss';
 
 /**
  * @see {@link https://w3c.github.io/aria-practices/examples/combobox/aria1.1pattern/listbox-combo.html} for the spec

@@ -4,6 +4,7 @@ import Inputable from './Inputable';
 import InputDatePicker from './InputDatePicker';
 
 const propTypes = {
+  id: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
   minValue: PropTypes.string,

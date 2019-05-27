@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Spinner from './Spinner';
-import './spinner-button.scss';
 
 const propTypes = {
   children: PropTypes.oneOfType([
@@ -19,7 +18,6 @@ const propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
   type: PropTypes.string,
-  dataIdentifier: PropTypes.string,
 };
 
 const defaultProps = {

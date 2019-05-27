@@ -4,6 +4,7 @@ import React from 'react';
 import _ from 'lodash';
 
 const propTypes = {
+  id: PropTypes.string,
   onChange: PropTypes.func,
   value: PropTypes.oneOfType([
     PropTypes.string,
@@ -31,7 +32,6 @@ const defaultProps = {
 function TextArea({ controlled, value, dataIdentifier, inputRef, ...rest }) {
   return (
     <textarea
-      type="text"
       value={controlled && _.isNil(value) ? '' : value}
       data-identifier={dataIdentifier}
       ref={inputRef}

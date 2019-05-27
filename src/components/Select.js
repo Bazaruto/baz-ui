@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import 'react-select/dist/react-select.css';
 import ReactSelect from 'react-select';
 import _ from 'lodash';
 import { getChangeValue } from './Inputable'
@@ -29,8 +28,8 @@ const propTypes = {
   clearable: PropTypes.bool,
   searchable: PropTypes.bool,
   disabled: PropTypes.bool,
-  valueKey: PropTypes.string.isRequired,
-  labelKey: PropTypes.string.isRequired,
+  valueKey: PropTypes.string,
+  labelKey: PropTypes.string,
   dataIdentifier: PropTypes.string,
   selectClassName: PropTypes.string,
   pluckValueOnChange: PropTypes.bool,

@@ -2,17 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import WithTooltip from './WithTooltip';
 import { getChangeValue } from './Inputable';
-import './toggle-switch.scss';
 
 const propTypes = {
   value: PropTypes.bool.isRequired,
   name: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
-  tooltip: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.bool,
-  ]),
+  tooltip: PropTypes.node,
   dataIdentifier: PropTypes.string,
 };
 
@@ -38,12 +34,9 @@ export default class ToggleSwitch extends React.Component {
           onChange={this.handleChange}
           disabled={disabled}
         />
-        {!!tooltip
-          ? <WithTooltip id="tooltip" placement="top" tooltip={tooltip}>
-              {this.slider}
-            </WithTooltip>
-          : this.slider
-        }
+        <WithTooltip id="tooltip" placement="top" tooltip={tooltip}>
+          {this.slider}
+        </WithTooltip>
       </label>
     );
   }

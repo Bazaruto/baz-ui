@@ -5,6 +5,7 @@ import Inputable from './Inputable';
 import { formatNumber, breakIntoAmounts } from '../utils/number-utils';
 
 const propTypes = {
+  id: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.oneOfType([
     PropTypes.string,
@@ -102,9 +103,10 @@ class CurrencyInput extends Component {
   };
 
   render() {
-    const { name, className, style, disabled, dataIdentifier } = this.props;
+    const { id, name, className, style, disabled, dataIdentifier } = this.props;
     return (
       <input
+        id={id}
         type="text"
         ref={this.handleRef}
         onChange={this.handleChange}
@@ -117,10 +119,9 @@ class CurrencyInput extends Component {
   }
 }
 
-CurrencyInput = Inputable(CurrencyInput);
 CurrencyInput.propTypes = propTypes;
 CurrencyInput.defaultProps = defaultProps;
-export default CurrencyInput;
+export default Inputable(CurrencyInput);
 
 function numberOfDecimalsToFormat(value) {
   // Format zeros without decimals
