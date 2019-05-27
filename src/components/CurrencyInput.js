@@ -119,10 +119,9 @@ class CurrencyInput extends Component {
   }
 }
 
-CurrencyInput = Inputable(CurrencyInput);
 CurrencyInput.propTypes = propTypes;
 CurrencyInput.defaultProps = defaultProps;
-export default CurrencyInput;
+export default Inputable(CurrencyInput);
 
 function numberOfDecimalsToFormat(value) {
   // Format zeros without decimals

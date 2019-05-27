@@ -10,8 +10,6 @@ export { default as Input } from './Input';
 export { default as Inputable } from './Inputable';
 export { default as Modal } from './Modal';
 export { default as MultiSelect } from './MultiSelect';
-export { default as NumberInput } from './NumberInput';
-export { default as NumberInputToggle } from './NumberInputToggle';
 export { default as Select } from './Select';
 export { default as Spinner } from './Spinner';
 export { default as SpinnerButton } from './SpinnerButton';

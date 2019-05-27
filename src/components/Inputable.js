@@ -26,6 +26,7 @@ export default function inputable(Wrapped) {
         return;
       }
       if (process.env.NODE_ENV !== 'production') {
+        // eslint-disable-next-line no-console
         console.warn(`Unable to focus(). Use inputRef callback prop in ${displayName}. See <Input /> as an example`);
       }
     }

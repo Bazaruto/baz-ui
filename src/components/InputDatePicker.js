@@ -36,7 +36,7 @@ function setProperty($picker, property, value) {
 
 export default class InputDatePicker extends React.Component {
   componentDidMount() {
-    const { showTimePicker, defaultDate, startDate, viewMode, minDate, maxDate } = this.props;
+    const { showTimePicker, startDate, viewMode, minDate, maxDate } = this.props;
     const format = showTimePicker ? YEAR_MONTH_DAY_TIME : YEAR_MONTH_DAY;
     const $picker = $(this.picker).datetimepicker({
       format,
@@ -56,7 +56,7 @@ export default class InputDatePicker extends React.Component {
     }
 
     // Only apply date when we hide the picker
-    $picker.on('dp.hide', (e) => {
+    $picker.on('dp.hide', () => {
       if (_.isEmpty($picker.val())) {
         // Revert back if we have a date set
         if (this.props.startDate) {
@@ -97,6 +97,7 @@ export default class InputDatePicker extends React.Component {
     });
   }
 
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps) {
     const $picker = $(this.picker);
     if (this.props.minDate !== nextProps.minDate) {
