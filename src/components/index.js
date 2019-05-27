@@ -1,4 +1,5 @@
 export { default as BusyOverlay } from './BusyOverlay';
+export { Checkbox, Radio } from './Box';
 export { default as CheckboxList } from './CheckboxList';
 export { default as ConfirmationModal } from './ConfirmationModal';
 export { default as CurrencyInput } from './CurrencyInput';
