@@ -1,4 +1,5 @@
 import React from 'react';
+import { generateId } from './utils';
 
 export default function inputable(Wrapped) {
   const displayName = getDisplayName(Wrapped);
@@ -6,7 +7,7 @@ export default function inputable(Wrapped) {
   class Inputable extends React.Component {
     constructor(props) {
       super(props);
-      this._id = generateInternalId();
+      this._id = generateId();
     }
 
     handleChange = eventOrUpdate => {
@@ -40,10 +41,10 @@ export default function inputable(Wrapped) {
     };
 
     render() {
-      const { id, label, message, required, showMessage, button, panel, infoSection, ...rest } = this.props;
+      const { label, message, required, showMessage, button, panel, infoSection, ...rest } = this.props;
       const controlledInput = !!this.props.onChange;
 
-      const inputableId = id || `${this._id}-inputable`;
+      const inputableId = this.props.id || this._id;
       const messageToShow = showMessage && message;
       const groupClassName = 'form-group' + (messageToShow ? ' has-error' : '');
 
@@ -94,9 +95,4 @@ function getDisplayName(Wrapped) {
 
 function isEvent(eventOrUpdate) {
   return !!eventOrUpdate && !!eventOrUpdate.target && eventOrUpdate.target.hasOwnProperty('value');
-}
-
-let counter = 0;
-export function generateInternalId() {
-  return ++counter;
 }

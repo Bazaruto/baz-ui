@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { generateInternalId, getChangeValue } from './Inputable';
+import { getChangeValue } from './Inputable';
+import { generateId } from './utils';
 
 class Box extends React.Component {
   static propTypes = {
@@ -17,7 +18,7 @@ class Box extends React.Component {
 
   constructor(props) {
     super(props);
-    this._id = generateInternalId();
+    this._id = generateId();
   }
 
   handleChange = () => {
@@ -30,7 +31,7 @@ class Box extends React.Component {
 
   render() {
     const { props } = this;
-    const inputableId = props.id || `${this._id}-inputable`;
+    const inputableId = props.id || this._id;
     let wrapperClassName = 'form-check';
     if (props.inline) {
       wrapperClassName += ' form-check-inline'

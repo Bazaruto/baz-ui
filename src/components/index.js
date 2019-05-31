@@ -18,3 +18,4 @@ export { default as TextArea } from './TextArea';
 export { default as TimePicker } from './TimePicker';
 export { default as ToggleSwitch } from './ToggleSwitch';
 export { default as WithTooltip } from './WithTooltip';
+export { useId, generateId } from './utils';
