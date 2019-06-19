@@ -3,6 +3,7 @@ import React from 'react';
 import ReactSelect from 'react-select';
 import _ from 'lodash';
 import { getChangeValue } from './Inputable'
+import { generateId } from './utils'
 
 ReactSelect.displayName = 'ReactSelect';
 
@@ -49,6 +50,11 @@ const defaultProps = {
 };
 
 class Select extends React.Component {
+  constructor(props) {
+    super(props);
+    this._id = generateId();
+  }
+
   handleChange = change => {
     if (!change && !this.props.clearable) {
       return;
@@ -77,14 +83,16 @@ class Select extends React.Component {
 
   render() {
     const { label, name, options, multi, clearable, message, disabled, valueKey, labelKey, placeholder, dataIdentifier, selectClassName } = this.props;
+    const id = this.props.id || this._id;
     return (
       <div
         data-identifier={dataIdentifier || name}
         className={this.divClassName}
       >
-        {label && <label className="control-label col-form-label">{label}</label>}
+        {label && <label htmlFor={id} className="control-label col-form-label">{label}</label>}
         {this.props.required && <span className="required-asterisk"> *</span>}
         <ReactSelect
+          inputProps={{ id }}
           className={selectClassName}
           value={this.value}
           onChange={this.handleChange}
