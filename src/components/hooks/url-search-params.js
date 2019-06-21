@@ -31,7 +31,10 @@ export function useUrlSearchParamState({ formify=noopFormify,
   useEffect(() => { formRef.current = form; });
 
   useEffect(() => {
-    function listener() {
+    function listener(event) {
+      if (!event.state) {
+        return;
+      }
       const currentUrlState = formify(getUrlSearchParams());
       if (!_.isEqual(currentUrlState, formRef.current)) {
         setForm(currentUrlState); // Sync with url state
