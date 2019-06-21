@@ -4,6 +4,7 @@ import {EMPTY_ARRAY} from '../constants';
 
 export default class SuggestionHelper {
   suggestionData = null;
+  suggestionsById = {};
   awaitingSuggestionData = null;
 
   constructor({ source, fieldToMatch }) {
@@ -42,7 +43,7 @@ export default class SuggestionHelper {
     return this.initSuggestions();
   }
 
-  getSuggestions(query) {
+  getSuggestions = (query) => {
     return this.ensureReadyToSuggest()
       .then(() => {
         if (_.isUndefined(query)) {
@@ -51,5 +52,31 @@ export default class SuggestionHelper {
         return findWithKeysMatching(this.suggestionData, this.fieldToMatch, query)
       })
       .catch(() => EMPTY_ARRAY)
+  }
+
+  getSuggestion = (value, options={fieldToMatch: 'id'}) => {
+    return this.ensureReadyToSuggest()
+      .then(() => {
+        if (!value) {
+          return null;
+        }
+        const cacheKey = `${options.fieldToMatch}-${value}`;
+        let suggestion = this.suggestionsById[cacheKey];
+        if (suggestion) {
+          return suggestion;
+        }
+        suggestion = this.suggestionData.find(sug => sug[options.fieldToMatch] === value);
+        if (suggestion) {
+          this.suggestionsById[cacheKey] = suggestion;
+          return suggestion
+        }
+        return null;
+      });
+  }
+
+  clearCache = () => {
+    this.suggestionData = null;
+    this.suggestionsById = {};
+    this.awaitingSuggestionData = null;
   }
 }
