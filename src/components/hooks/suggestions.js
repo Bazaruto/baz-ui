@@ -7,7 +7,7 @@ export function useSuggestion(value, getByValue, onChange=()=>{}, valueKey='id')
   const suggestion = suggestionsById[value];
   useEffect(
     () => {
-      if (value && !suggestion) {
+      if (value && suggestion === undefined) {
         setIsLoadingById(s => ({...s, [value]: true}));
         getByValue(value)
           .then(sug => setSuggestionsById(s => ({...s, [value]: sug})))
