@@ -1,3 +1,4 @@
+import {Promise} from 'es6-promise';
 import $ from 'jquery';
 import {noop} from '../constants';
 

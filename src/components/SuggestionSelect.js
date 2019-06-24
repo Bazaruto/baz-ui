@@ -17,6 +17,8 @@ export default class SuggestionSelect extends React.Component {
     getSuggestions: PropTypes.func.isRequired,
     renderSuggestion: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
+    disabled: PropTypes.bool,
+    initializing: PropTypes.bool,
   };
 
   state = {
@@ -34,7 +36,9 @@ export default class SuggestionSelect extends React.Component {
       filter(text => !this.hasSearchedBy(text)),
       debounceTime(500),
       switchMap(text => {
-        return this.props.getSuggestions(text).then(suggestions => ({ [text]: suggestions }))
+        return this.props.getSuggestions(text)
+          .then(suggestions => ({ [text]: suggestions }))
+          .catch(() => ({ [text]: null }))
       })
     )
     .subscribe(suggestionsPatch => {
@@ -112,6 +116,8 @@ export default class SuggestionSelect extends React.Component {
           value={state.text}
           onChange={this.handleTextChange}
           placeholder={selectedValue || props.placeholder}
+          disabled={this.props.initializing || this.props.disabled}
+          data-initializing={this.props.initializing}
           onFocus={this.handleInputFocus}
           panel={(
             <ButtonPanel

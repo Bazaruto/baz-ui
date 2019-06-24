@@ -3,6 +3,12 @@ $dropdown-blue: #80bdff;
 [data-dropdown-container] {
   position: relative;
 
+  input[data-initializing=true] {
+    cursor: progress;
+    opacity: 0.7;
+    background-color: #acaeb014;
+  }
+
   &.dd-expanded {
     ul {
       visibility: visible;
