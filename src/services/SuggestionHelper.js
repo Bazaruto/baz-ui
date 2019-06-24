@@ -58,15 +58,15 @@ export default class SuggestionHelper {
       .catch(() => EMPTY_ARRAY)
   }
 
-  getSuggestion = (value, options={fieldToMatch: 'id'}) => {
+  getSuggestion = (value, { fieldToMatch='id' } = {}) => {
     return this.ensureReadyToSuggest()
       .then(() => {
-        const cacheKey = `${options.fieldToMatch}-${value}`;
+        const cacheKey = `${fieldToMatch}-${value}`;
         let suggestion = this.suggestionsById[cacheKey];
         if (suggestion) {
           return suggestion;
         }
-        suggestion = this.suggestionData.find(sug => sug[options.fieldToMatch] === value);
+        suggestion = this.suggestionData.find(sug => sug[fieldToMatch] === value);
         if (suggestion) {
           this.suggestionsById[cacheKey] = suggestion;
           return suggestion

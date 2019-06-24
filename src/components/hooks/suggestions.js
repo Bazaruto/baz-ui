@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
-import {EMPTY_OBJECT} from '../../constants';
+import {EMPTY_OBJECT, noop} from '../../constants';
 
-export function useSuggestion(value, getByValue, onChange=()=>{}, valueKey='id') {
+export function useSuggestion(value, getByValue, onChange=noop, valueKey='id') {
   const [suggestionsById, setSuggestionsById] = useState({});
   const [isLoadingById, setIsLoadingById] = useState({});
   const suggestion = suggestionsById[value];

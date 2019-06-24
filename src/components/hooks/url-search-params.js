@@ -6,8 +6,7 @@ import _ from 'lodash';
 
 const noopFormify = p => p;
 
-export function useUrlSearchParamState({ formify=noopFormify,
-                                         paramify=toSnakeCase }) {
+export function useUrlSearchParamState({ formify=noopFormify, paramify=toSnakeCase } = {}) {
   const initialState = useMemo(() => formify(getUrlSearchParams()), []);
   const [form, setForm] = useState(initialState);
 
