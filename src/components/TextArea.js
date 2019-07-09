@@ -25,14 +25,12 @@ const propTypes = {
 const defaultProps = {
   style: { maxWidth: '100%' },
   className: 'form-control',
-  onBlur: () => {},
-  placeholder: '',
 };
 
-function TextArea({ controlled, value, dataIdentifier, inputRef, ...rest }) {
+function TextArea({ value, dataIdentifier, inputRef, ...rest }) {
   return (
     <textarea
-      value={controlled && _.isNil(value) ? '' : value}
+      value={!!rest.onChange && _.isNil(value) ? '' : value}
       data-identifier={dataIdentifier}
       ref={inputRef}
       {...rest}

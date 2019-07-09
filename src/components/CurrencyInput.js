@@ -6,7 +6,7 @@ import { formatNumber, breakIntoAmounts } from '../utils/number-utils';
 
 const propTypes = {
   id: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
@@ -26,6 +26,7 @@ const propTypes = {
 
 const defaultProps = {
   value: '',
+  className: 'form-control',
 };
 
 class CurrencyInput extends Component {
@@ -55,10 +56,11 @@ class CurrencyInput extends Component {
   };
 
   triggerChange() {
-    if (this.props.value === this.roundedValue) {
+    const { onChange, value } = this.props;
+    if (!onChange || value === this.roundedValue) {
       return;
     }
-    this.props.onChange(this.roundedValue);
+    onChange(this.roundedValue);
   }
 
   updateCurrencyInput(valueToFormat, decimals) {
@@ -103,17 +105,16 @@ class CurrencyInput extends Component {
   };
 
   render() {
-    const { id, name, className, style, disabled, dataIdentifier } = this.props;
+    // eslint-disable-next-line no-unused-vars
+    const { dataIdentifier, value, inputRef, ...rest } = this.props;
     return (
       <input
-        id={id}
+        data-identifier={dataIdentifier}
+        {...rest}
         type="text"
         ref={this.handleRef}
         onChange={this.handleChange}
         onBlur={this.handleBlur}
-        className={`form-control ${className}`}
-        data-identifier={dataIdentifier}
-        {...{name, style, disabled}}
       />
     );
   }
