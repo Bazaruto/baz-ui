@@ -61,7 +61,6 @@ export default function inputable(Wrapped) {
               {...rest}
               id={inputableId}
               onChange={controlledInput ? this.handleChange : undefined}
-              controlled={controlledInput}
               inputRef={this.setInputRef}
             />
             {button &&

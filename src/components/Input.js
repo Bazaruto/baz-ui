@@ -28,14 +28,11 @@ const propTypes = {
 };
 
 const defaultProps = {
-  style: {},
-  className: 'form-control',
-  onBlur: () => {},
-  placeholder: '',
   type: 'text',
+  className: 'form-control',
 };
 
-export function Input({ type, onChange, controlled, value, dataIdentifier, inputRef, ...rest }) {
+export function Input({ type, onChange, value, dataIdentifier, inputRef, ...rest }) {
   function handleChange(ev) {
     if (!onChange) return;
     let val = ev.target.value;
@@ -45,7 +42,7 @@ export function Input({ type, onChange, controlled, value, dataIdentifier, input
   return (
     <input
       type={type}
-      value={controlled && _.isNil(value) ? '' : value}
+      value={!!onChange && _.isNil(value) ? '' : value}
       data-identifier={dataIdentifier}
       ref={inputRef}
       onChange={handleChange}
