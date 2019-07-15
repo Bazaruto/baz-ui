@@ -55,15 +55,15 @@ class Select extends React.Component {
     this._id = generateId();
   }
 
-  handleChange = change => {
-    if (!change && !this.props.clearable) {
+  handleChange = option => {
+    if (!option && !this.props.clearable) {
       return;
     }
-    if (!this.props.pluckValueOnChange) {
-      return this.props.onChange(change);
+    if (!!option && this.props.pluckValueOnChange) {
+      option = option[this.props.valueKey];
     }
-    const value = change ? change[this.props.valueKey] : change;
-    this.props.onChange(getChangeValue(value, this.props.name));
+    const onChange = this.props.onChange || this.context.onChange;
+    onChange(getChangeValue(option, this.props.name));
   };
 
   get value() {
@@ -89,8 +89,12 @@ class Select extends React.Component {
         data-identifier={dataIdentifier || name}
         className={this.divClassName}
       >
-        {label && <label htmlFor={id} className="control-label col-form-label">{label}</label>}
-        {this.props.required && <span className="required-asterisk"> *</span>}
+        {label &&
+          <label className="control-label col-form-label" htmlFor={id}>
+            {label}
+            {this.props.required && <span className="required-asterisk"> *</span>}
+          </label>
+        }
         <ReactSelect
           inputProps={{ id }}
           className={selectClassName}
