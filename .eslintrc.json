@@ -17,5 +17,6 @@
     "react/prop-types": "warn"
   },
   "globals": {
+    "Honeybadger": true
   }
 }
