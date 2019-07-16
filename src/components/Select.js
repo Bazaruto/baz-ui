@@ -62,8 +62,7 @@ class Select extends React.Component {
     if (!!option && this.props.pluckValueOnChange) {
       option = option[this.props.valueKey];
     }
-    const onChange = this.props.onChange || this.context.onChange;
-    onChange(getChangeValue(option, this.props.name));
+    this.props.onChange(getChangeValue(option, this.props.name));
   };
 
   get value() {
