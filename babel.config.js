@@ -18,6 +18,9 @@ module.exports = function(api) {
   const plugins = [
     require('@babel/plugin-transform-destructuring').default,
     [
+      require('@babel/plugin-proposal-class-properties').default, { loose: true }
+    ],
+    [
       require('@babel/plugin-proposal-object-rest-spread').default, { useBuiltIns: true }
     ],
   ];

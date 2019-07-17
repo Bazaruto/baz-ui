@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {findWithKeysMatching} from '../utils/collection-utils';
+import {findWithMatchingFields} from '../utils/collection-utils';
 import {EMPTY_ARRAY} from '../constants';
 import {Promise} from 'es6-promise';
 
@@ -8,9 +8,8 @@ export default class SuggestionHelper {
   suggestionsById = {};
   awaitingSuggestionData = null;
 
-  constructor({ source, fieldToMatch }) {
+  constructor({ source }) {
     this.source = source;
-    this.fieldToMatch = fieldToMatch;
   }
 
   initSuggestions() {
@@ -24,7 +23,7 @@ export default class SuggestionHelper {
     if (isFirstInit) {
       this.source()
         .then(data => {
-          this.suggestionData = _.sortBy(data, this.fieldToMatch);
+          this.suggestionData = data;
           this.awaitingSuggestionData.forEach(pending => pending[0]());
           this.awaitingSuggestionData = EMPTY_ARRAY;
         })
@@ -47,13 +46,13 @@ export default class SuggestionHelper {
     return this.initSuggestions();
   }
 
-  getSuggestions = (query) => {
+  getSuggestions = (query, options) => {
     return this.ensureReadyToSuggest()
       .then(() => {
         if (_.isUndefined(query)) {
           return this.suggestionData;
         }
-        return findWithKeysMatching(this.suggestionData, this.fieldToMatch, query)
+        return findWithMatchingFields(this.suggestionData, options, query)
       })
       .catch(() => EMPTY_ARRAY)
   }
