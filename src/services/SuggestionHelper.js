@@ -8,8 +8,10 @@ export default class SuggestionHelper {
   suggestionsById = {};
   awaitingSuggestionData = null;
 
-  constructor({ source }) {
+  constructor({ uid='id', source, ...options }) {
+    this.uid = uid;
     this.source = source;
+    this.options = options;
   }
 
   initSuggestions() {
@@ -46,7 +48,7 @@ export default class SuggestionHelper {
     return this.initSuggestions();
   }
 
-  getSuggestions = (query, options) => {
+  getSuggestions = (query, options=this.options) => {
     return this.ensureReadyToSuggest()
       .then(() => {
         if (_.isUndefined(query)) {
@@ -57,15 +59,15 @@ export default class SuggestionHelper {
       .catch(() => EMPTY_ARRAY)
   }
 
-  getSuggestion = (value, { fieldToMatch='id' } = {}) => {
+  getSuggestion = (value) => {
     return this.ensureReadyToSuggest()
       .then(() => {
-        const cacheKey = `${fieldToMatch}-${value}`;
+        const cacheKey = `${this.uid}-${value}`;
         let suggestion = this.suggestionsById[cacheKey];
         if (suggestion) {
           return suggestion;
         }
-        suggestion = this.suggestionData.find(sug => sug[fieldToMatch] === value);
+        suggestion = this.suggestionData.find(sug => sug[this.uid] === value);
         if (suggestion) {
           this.suggestionsById[cacheKey] = suggestion;
           return suggestion

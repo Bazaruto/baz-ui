@@ -1,7 +1,7 @@
 import {EMPTY_ARRAY} from '../constants';
 import _ from 'lodash';
 
-export function findWithMatchingFields(collection, { getStringToMatch, fieldToMatch }, query='') {
+export function findWithMatchingFields(collection, { fieldToMatch }, query='') {
   if (query.length < 2) {
     return EMPTY_ARRAY;
   }
@@ -20,7 +20,7 @@ export function findWithMatchingFields(collection, { getStringToMatch, fieldToMa
   const matches = [];
   for (let i = 0; i < collection.length; i++) {
     const obj = collection[i];
-    if (searchRegex.test(getStringToMatch ? getStringToMatch(obj) : obj[fieldToMatch])) {
+    if (searchRegex.test(obj[fieldToMatch])) {
       matches.push(obj);
     }
   }
