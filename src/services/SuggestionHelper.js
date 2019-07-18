@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {findWithKeysMatching} from '../utils/collection-utils';
+import {findWithMatchingFields} from '../utils/collection-utils';
 import {EMPTY_ARRAY} from '../constants';
 import {Promise} from 'es6-promise';
 
@@ -8,9 +8,10 @@ export default class SuggestionHelper {
   suggestionsById = {};
   awaitingSuggestionData = null;
 
-  constructor({ source, fieldToMatch }) {
+  constructor({ uid='id', source, ...options }) {
+    this.uid = uid;
     this.source = source;
-    this.fieldToMatch = fieldToMatch;
+    this.options = options;
   }
 
   initSuggestions() {
@@ -24,7 +25,7 @@ export default class SuggestionHelper {
     if (isFirstInit) {
       this.source()
         .then(data => {
-          this.suggestionData = _.sortBy(data, this.fieldToMatch);
+          this.suggestionData = data;
           this.awaitingSuggestionData.forEach(pending => pending[0]());
           this.awaitingSuggestionData = EMPTY_ARRAY;
         })
@@ -47,26 +48,26 @@ export default class SuggestionHelper {
     return this.initSuggestions();
   }
 
-  getSuggestions = (query) => {
+  getSuggestions = (query, options=this.options) => {
     return this.ensureReadyToSuggest()
       .then(() => {
         if (_.isUndefined(query)) {
           return this.suggestionData;
         }
-        return findWithKeysMatching(this.suggestionData, this.fieldToMatch, query)
+        return findWithMatchingFields(this.suggestionData, options, query)
       })
       .catch(() => EMPTY_ARRAY)
   }
 
-  getSuggestion = (value, { fieldToMatch='id' } = {}) => {
+  getSuggestion = (value) => {
     return this.ensureReadyToSuggest()
       .then(() => {
-        const cacheKey = `${fieldToMatch}-${value}`;
+        const cacheKey = `${this.uid}-${value}`;
         let suggestion = this.suggestionsById[cacheKey];
         if (suggestion) {
           return suggestion;
         }
-        suggestion = this.suggestionData.find(sug => sug[fieldToMatch] === value);
+        suggestion = this.suggestionData.find(sug => sug[this.uid] === value);
         if (suggestion) {
           this.suggestionsById[cacheKey] = suggestion;
           return suggestion
