@@ -74,5 +74,18 @@ describe('SuggestionHelper', () => {
         null
       );
     });
+
+    it('allows specifying a custom uid', async () => {
+      const getOtherData = () => new Promise(res => res([
+        {some_other_id: 224, name: 'Arusha Game Lodge'},
+        {some_other_id: 34, name: 'Arusha Safari Camp'},
+      ]));
+      helper = new SuggestionHelper({ source: getOtherData, uid: 'some_other_id'});
+      const result = await helper.getSuggestion(34);
+      assert.deepEqual(
+        result,
+        {some_other_id: 34, name: 'Arusha Safari Camp'},
+      );
+    })
   });
 });
