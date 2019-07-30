@@ -27,6 +27,12 @@ export function createAjaxOperators(options = { errorSuffix: 'ERROR' }) {
       observable.pipe(
         debounceTime(debounceMs),
         switchMap(action =>
+          /*
+            We want to immediately cancel the ajax that is in progress
+            when another event comes into play, because if we don't, there is
+            a chance that we will still be debouncing (which takes "debounceMs"
+            before hitting this "switchMap") when the ajax response comes back.
+           */
           createAjaxObservable(action).pipe(takeUntil(observable))
         )
       );
