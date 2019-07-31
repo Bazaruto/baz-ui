@@ -25,6 +25,9 @@ export default function Spinner(props) {
     className += ` ${props.size}`;
   }
   return (
-    <span aria-label="In progess" className={className} />
+    <>
+      <span className={className} />
+      <span className="sr-only">In progress</span>
+    </>
   );
 }

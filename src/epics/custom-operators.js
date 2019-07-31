@@ -1,5 +1,5 @@
 import { Observable, from, of, empty, asyncScheduler } from 'rxjs';
-import { flatMap, switchMap, pluck, map, catchError, throttleTime } from 'rxjs/operators';
+import { flatMap, switchMap, pluck, map, catchError, throttleTime, takeUntil, debounceTime } from 'rxjs/operators';
 import _ from 'lodash';
 
 export { ofType } from 'redux-observable';
@@ -14,15 +14,32 @@ export function pluckPayload(...keys) {
 
 export function createAjaxOperators(options = { errorSuffix: 'ERROR' }) {
   function flatAjax(apiOperation) {
-    return flatMap(createApiOperationMapper(apiOperation));
+    return flatMap(makeAjaxObservableFactory(apiOperation));
   }
 
   function switchAjax(apiOperation) {
-    return switchMap(createApiOperationMapper(apiOperation));
+    return switchMap(makeAjaxObservableFactory(apiOperation));
   }
 
-  function createApiOperationMapper(apiOperation) {
-    return action => {
+  function debounceAjax(apiOperation, debounceMs=400) {
+    const createAjaxObservable = makeAjaxObservableFactory(apiOperation);
+    return observable =>
+      observable.pipe(
+        debounceTime(debounceMs),
+        switchMap(action => {
+          /*
+            We want to immediately cancel the ajax that is in progress
+            when another event comes into play, because if we don't, there is
+            a chance that we will still be debouncing (which takes "debounceMs"
+            before hitting this "switchMap") when the ajax response comes back.
+           */
+          return createAjaxObservable(action).pipe(takeUntil(observable));
+        })
+      );
+  }
+
+  function makeAjaxObservableFactory(apiOperation) {
+    return function createAjaxObservable(action) {
       const fsa = isFSA(action);
       const payload = fsa ? action.payload : action;
       const meta = { args: payload };
@@ -73,11 +90,12 @@ export function createAjaxOperators(options = { errorSuffix: 'ERROR' }) {
 
   return {
     flatAjax,
-    switchAjax
+    switchAjax,
+    debounceAjax,
   }
 }
 
-export const { flatAjax, switchAjax } = createAjaxOperators();
+export const { flatAjax, switchAjax, debounceAjax } = createAjaxOperators();
 
 // Flux Standard Action (FSA) check
 function isFSA(data) {
