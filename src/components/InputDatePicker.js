@@ -97,18 +97,17 @@ export default class InputDatePicker extends React.Component {
     });
   }
 
-  // eslint-disable-next-line react/no-deprecated
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps) {
     const $picker = $(this.picker);
-    if (this.props.minDate !== nextProps.minDate) {
-      setProperty($picker, 'minDate', nextProps.minDate);
+    if (prevProps.minDate !== this.props.minDate) {
+      setProperty($picker, 'minDate', this.props.minDate);
     }
-    if (this.props.maxDate !== nextProps.maxDate) {
-      setProperty($picker, 'maxDate', nextProps.maxDate);
+    if (prevProps.maxDate !== this.props.maxDate) {
+      setProperty($picker, 'maxDate', this.props.maxDate);
     }
     // Apply the new date last as the min/max date could have changed as well
-    if ($picker.val() !== nextProps.startDate) {
-      setProperty($picker, 'date', nextProps.startDate);
+    if ($picker.val() !== this.props.startDate) {
+      setProperty($picker, 'date', this.props.startDate);
     }
   }
 
