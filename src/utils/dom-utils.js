@@ -1,5 +1,5 @@
 import {EMPTY_OBJECT} from '../constants';
-import _ from 'lodash';
+import {isNil, isArray} from 'lodash';
 
 export function copyElementAndChildrenToClipboard(elem) {
   let range;
@@ -72,7 +72,7 @@ export function getUrlSearchParams(url) {
 }
 
 function getParamValue(encodedValue) {
-  if (_.isNil(encodedValue)) {
+  if (isNil(encodedValue)) {
     return true;
   }
   const value = decodeURIComponent(encodedValue);
@@ -105,7 +105,7 @@ function processSquareBracketEntry(urlParams, paramName, paramValue) {
 }
 
 function processExistingEntry(urlParams, paramName, paramValue) {
-  if (!_.isArray(urlParams[paramName])) {
+  if (!isArray(urlParams[paramName])) {
     urlParams[paramName] = [urlParams[paramName]];
   }
   urlParams[paramName].push(paramValue);

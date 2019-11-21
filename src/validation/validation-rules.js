@@ -1,13 +1,13 @@
 /* eslint-disable no-useless-escape */
-import _ from 'lodash';
+import {isObject, isEmpty} from 'lodash';
 
 export function isPresent(value) {
   if (typeof value === 'string') {
     // lodash isEmpty does not catch blank space or new line characters
     return (/\S/.test(value));
   }
-  if (_.isObject(value)) {
-    return !_.isEmpty(value);
+  if (isObject(value)) {
+    return !isEmpty(value);
   }
   return !!value || value === 0;
 }
@@ -17,7 +17,7 @@ export function isRequired(value) {
 }
 
 export function isNotEmpty(value) {
-  return !_.isEmpty(value);
+  return !isEmpty(value);
 }
 
 export function isNotZero(value) {

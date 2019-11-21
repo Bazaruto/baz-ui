@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import {isString, isObject} from 'lodash';
 import * as rules from './validation-rules';
 import GlobalMessages from './ValidationMessages';
 
@@ -9,12 +9,12 @@ import GlobalMessages from './ValidationMessages';
  * nothing when valid
  */
 export function createFieldValidator(ruleContextObject, rule) {
-  const isStringRule = _.isString(rule);
+  const isStringRule = isString(rule);
   let validatorName, message;
   if (isStringRule) {
     validatorName = rule;
     message = GlobalMessages[rule]; // If it's not a custom rule, then we will find a message here
-  } else if (_.isObject(rule)){
+  } else if (isObject(rule)){
     validatorName = rule.validator;
     message = rule.message;
   } else {

@@ -1,5 +1,5 @@
 import {EMPTY_ARRAY} from '../constants';
-import _ from 'lodash';
+import {snakeCase} from 'lodash';
 
 export function findWithMatchingFields(collection, { fieldToMatch }, query='') {
   if (query.length < 2) {
@@ -29,7 +29,7 @@ export function findWithMatchingFields(collection, { fieldToMatch }, query='') {
 
 export function toSnakeCase(object) {
   return Object.keys(object).reduce((acc, key) => {
-    acc[_.snakeCase(key)] = object[key];
+    acc[snakeCase(key)] = object[key];
     return acc;
   }, {});
 }

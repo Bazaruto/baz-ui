@@ -1,32 +1,44 @@
 import Moment from 'moment';
 import * as DateFormat from '../constants/date-format';
 
-export function formatDate(date) {
-  date = _ensureMoment(date);
-  return date.format(DateFormat.YEAR_MONTH_DAY);
+export function getToday() {
+  return formatDate(new Date());
+}
+
+export function addDays(date, numberOfDays) {
+  return formatDate(Moment(date).add(numberOfDays, 'days'));
+}
+
+export function addDay(date) {
+  return addDays(date, 1);
+}
+
+export function formatDate(date, format=DateFormat.YEAR_MONTH_DAY) {
+  return _ensureMoment(date).format(format);
 }
 
 export function formatDateTime(date) {
-  date = _ensureMoment(date);
-  return date.format(DateFormat.YEAR_MONTH_DAY_TIME);
+  return formatDate(date, DateFormat.YEAR_MONTH_DAY_TIME);
 }
 
-export function formatDateRange(from, to) {
-  return _formatDateRange(from, to, DateFormat.LONG);
+export function formatDateRange(from, to, format=DateFormat.LONG) {
+  from = _ensureMoment(from);
+  to = _ensureMoment(to);
+
+  const startFormat = from.month() === to.month() && from.year() === to.year() ? 'D' : format;
+  return from.format(startFormat) + ' - ' + to.format(format);
 }
 
 export function formatShortDateRange(from, to) {
-  return _formatDateRange(from, to, DateFormat.SHORT);
+  return formatDateRange(from, to, DateFormat.SHORT);
 }
 
 export function formatDateLong(date) {
-  date = _ensureMoment(date);
-  return date.format(DateFormat.LONG);
+  return formatDate(date, DateFormat.LONG);
 }
 
-export function formateDateTimeWithZone(date) {
-  date = _ensureMoment(date);
-  return date.format(DateFormat.YEAR_MONTH_DAY_TIME_ZONE);
+export function formatDateTimeWithZone(date) {
+  return formatDate(date, DateFormat.YEAR_MONTH_DAY_TIME_ZONE);
 }
 
 export function formatDateEasyToRead(date) {
@@ -37,6 +49,22 @@ export function formatDateEasyToRead(date) {
   return date.format(DateFormat.YEAR_MONTH_DAY_TIME_ZONE);
 }
 
+export function formatShortDayMonth(date) {
+  return formatDate(date, DateFormat.SHORT_DAY_MONTH);
+}
+
+export function formatShortMonthYear(date) {
+  return formatDate(date, DateFormat.SHORT_MONTH_YEAR);
+}
+
+export function formatShortMonthDayYear(date) {
+  return formatDate(date, DateFormat.SHORT_MONTH_DAY_YEAR);
+}
+
+export function getDateDifference(from, to, measurement='days') {
+  return Moment(to).diff(from, measurement);
+}
+
 export function ageFromDate(date) {
   date = _ensureMoment(date);
   return Moment().diff(date, 'years');
@@ -45,21 +73,6 @@ export function ageFromDate(date) {
 export function timeFromNow(date) {
   date = _ensureMoment(date);
   return date.fromNow();
-}
-
-export function formatShortDayMonth(date) {
-  date = _ensureMoment(date);
-  return date.format(DateFormat.SHORT_DAY_MONTH);
-}
-
-export function formatShortMonthYear(date) {
-  date = _ensureMoment(date);
-  return date.format(DateFormat.SHORT_MONTH_YEAR);
-}
-
-export function formatShortMonthDayYear(date) {
-  date = _ensureMoment(date);
-  return date.format(DateFormat.SHORT_MONTH_DAY_YEAR);
 }
 
 export function maxDate(dateA, dateB) {
@@ -75,7 +88,7 @@ export function minDate(dateA, dateB) {
 }
 
 export function applyUpdatedTime(date, time) {
-  const [ hour, minute ] = time.split(':');
+  const [hour, minute] = time.split(':');
   const wDate = Moment(date);
   if (hour && minute) {
     wDate.set('hour', hour);
@@ -86,12 +99,4 @@ export function applyUpdatedTime(date, time) {
 
 function _ensureMoment(date) {
   return Moment.isMoment(date) ? date : Moment(date);
-}
-
-function _formatDateRange(from, to, format) {
-  from = _ensureMoment(from);
-  to = _ensureMoment(to);
-
-  const startFormat = from.month() === to.month() && from.year() === to.year() ? 'D' : format;
-  return from.format(startFormat) + ' - ' + to.format(format);
 }

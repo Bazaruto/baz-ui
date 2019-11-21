@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { isEmpty } from 'lodash';
 import { createFieldValidator } from './createFieldValidator'
 
 /**
@@ -68,7 +68,7 @@ export function createValidator(def) {
     const result = {
       ...form,
       messages,
-      valid: _.isEmpty(messages),
+      valid: isEmpty(messages),
     };
 
     prevForm = form;

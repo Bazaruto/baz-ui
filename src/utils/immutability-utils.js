@@ -1,7 +1,7 @@
-import _ from 'lodash';
+import {isFunction, findIndex} from 'lodash';
 
 export function updateArray(array, indexFinder, mapper) {
-  const index = _.isFunction(indexFinder) ? _.findIndex(array, indexFinder) : indexFinder;
+  const index = isFunction(indexFinder) ? findIndex(array, indexFinder) : indexFinder;
   if (index < 0) {
     return array;
   }
@@ -11,7 +11,7 @@ export function updateArray(array, indexFinder, mapper) {
 }
 
 export function removeArrayEntry(array, indexFinder) {
-  const index = _.isFunction(indexFinder) ? _.findIndex(array, indexFinder) : indexFinder;
+  const index = isFunction(indexFinder) ? findIndex(array, indexFinder) : indexFinder;
   if (index < 0) {
     return array;
   }

@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import {isUndefined} from 'lodash';
 import {findWithMatchingFields} from '../utils/collection-utils';
 import {EMPTY_ARRAY} from '../constants';
 import {Promise} from 'es6-promise';
@@ -51,7 +51,7 @@ export default class SuggestionHelper {
   getSuggestions = (query, options=this.options) => {
     return this.ensureReadyToSuggest()
       .then(() => {
-        if (_.isUndefined(query)) {
+        if (isUndefined(query)) {
           return this.suggestionData;
         }
         return findWithMatchingFields(this.suggestionData, options, query)

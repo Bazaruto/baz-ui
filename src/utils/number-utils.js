@@ -1,11 +1,11 @@
-import _ from 'lodash';
+import {isNull, round} from 'lodash';
 
 export function formatNumber(number, numberOfDecimals=2) {
-  if (isNaN(number) || _.isNull(number)) {
+  if (isNaN(number) || isNull(number)) {
     return '';
   }
 
-  number = _.round(number, numberOfDecimals).toFixed(numberOfDecimals);
+  number = round(number, numberOfDecimals).toFixed(numberOfDecimals);
   const parts = number.split('.');
   const num = parts[0];
   const decimals = parts[1] ? '.' + parts[1] : '';
