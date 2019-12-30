@@ -1,45 +1,65 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
-import WithTooltip from './WithTooltip';
 import { getChangeValue } from './Inputable';
+import { useId } from './utils';
 
-const propTypes = {
+ToggleSwitch.propTypes = {
+  id: PropTypes.string,
+  label: PropTypes.node,
+  'aria-label': PropTypes.string,
   value: PropTypes.bool.isRequired,
   name: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
   tooltip: PropTypes.node,
   dataIdentifier: PropTypes.string,
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
 };
 
-export default class ToggleSwitch extends React.Component {
-  handleChange = () => {
-    this.props.onChange(getChangeValue(!this.props.value, this.props.name));
-  };
+ToggleSwitch.defaultProps = {
+  size: 'medium',
+};
 
-  get slider() {
-    return (
-      <span className={`slider round ${this.props.disabled ? 'disabled' : ''}`} />
-    );
+export default function ToggleSwitch(props) {
+  const internalId = useId();
+  const id = props.id || internalId;
+  const inputRef = useRef();
+  let containerClassName = 'toggle-switch';
+  if (props.size) {
+    containerClassName += ` toggle-switch--${props.size}`;
   }
-
-  render() {
-    const { value, disabled, tooltip } = this.props;
-
-    return (
-      <label className="toggle-switch" data-identifier={this.props.dataIdentifier}>
-        <input
-          type="checkbox"
-          checked={value}
-          onChange={this.handleChange}
-          disabled={disabled}
+  return (
+    <div className={containerClassName}>
+      <input
+        id={id}
+        ref={inputRef}
+        type="checkbox"
+        name={props.name}
+        className="toggle-switch-input"
+        checked={props.value}
+        onChange={() => {
+          props.onChange(getChangeValue(!props.value, props.name));
+        }}
+        disabled={props.disabled}
+        aria-label={props['aria-label']}
+        data-identifier={props.dataIdentifier}
+      />
+      {props.label ? (
+        <label htmlFor={id} className="toggle-switch-label">
+          {props.label}
+        </label>
+      ) : (
+        <span
+          className="toggle-switch-label"
+          onClick={(ev) => {
+            if (props.disabled) return;
+            ev.preventDefault();
+            ev.stopPropagation();
+            inputRef.current.focus();
+            inputRef.current.click();
+          }}
         />
-        <WithTooltip id="tooltip" placement="top" tooltip={tooltip}>
-          {this.slider}
-        </WithTooltip>
-      </label>
-    );
-  }
+      )}
+    </div>
+  );
 }
-
-ToggleSwitch.propTypes = propTypes;

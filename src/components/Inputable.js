@@ -41,7 +41,7 @@ export default function inputable(Wrapped) {
     };
 
     render() {
-      const { label, message, required, showMessage, button, panel, infoSection, ...rest } = this.props;
+      const { label, message, required, showMessage, button, prepend, append, panel, infoSection, ...rest } = this.props;
       const controlledInput = !!this.props.onChange;
 
       const inputableId = this.props.id || this._id;
@@ -50,29 +50,39 @@ export default function inputable(Wrapped) {
 
       return (
         <div className={groupClassName}>
-          {label &&
+          {label && (
             <label className="control-label col-form-label" htmlFor={inputableId}>
               {label}
               {required && <span className="required-asterisk"> *</span>}
             </label>
-          }
-          <div className={'relative' + (button ? ' input-group' : '')}>
+          )}
+          <div className={'relative' + (button || prepend || append ? ' input-group' : '')}>
+            {prepend && (
+              <span className="input-group-addon input-group-prepend">
+                {prepend}
+              </span>
+            )}
             <Wrapped
               {...rest}
               id={inputableId}
               onChange={controlledInput ? this.handleChange : undefined}
               inputRef={this.setInputRef}
             />
-            {button &&
+            {append && (
+              <span className="input-group-addon input-group-append">
+                {append}
+              </span>
+            )}
+            {button && (
               <span className="input-group-btn input-group-append">
                 {button}
               </span>
-            }
-            {panel &&
+            )}
+            {panel && (
               <span className="inputable-panel">
                 {panel}
               </span>
-            }
+            )}
           </div>
           {messageToShow && <small className="control-label form-text">{messageToShow}</small>}
           {infoSection}

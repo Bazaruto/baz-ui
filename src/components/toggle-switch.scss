@@ -1,64 +1,155 @@
 .toggle-switch {
   position: relative;
   display: inline-block;
-  width: 44px;
-  height: 24px;
+}
 
-  .slider {
+.toggle-switch-input {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+  display: inline-block !important;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.toggle-switch-label {
+  display: inline-block;
+  position: relative;
+  margin-bottom: 0;
+  vertical-align: top;
+  &:after, &:before {
     position: absolute;
+    display: block;
+    content: "";
     cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+  }
+  &:before {
+    pointer-events: all;
+    transition: background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .05s ease-in-out;
     background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-
-    &.disabled {
-      cursor: not-allowed;
-      opacity: 0.6;
-    }
-
-    &:before {
-      position: absolute;
-      content: "";
-      height: 16px;
-      width: 16px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      -webkit-transition: .4s;
-      transition: .4s;
-    }
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   }
-
-  input { display:none; }
-
-  input:checked + .slider {
-    background-color: #1EB90D;
-  }
-
-  input:checked + .slider.disabled {
-    opacity: 0.6;
-  }
-
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-  }
-
-  input:checked + .slider:before {
-    -webkit-transform: translateX(20px);
-    -ms-transform: translateX(20px);
-    transform: translateX(20px);
-  }
-
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 34px;
-  }
-
-  .slider.round:before {
+  &:after {
+    background: no-repeat 50%/50% 50%;
+    background-color: #fff;
     border-radius: 50%;
+    transition: transform .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  }
+}
+
+.toggle-switch-input:checked~.toggle-switch-label:before {
+  color: #fff;
+  background-color: #1EB90D;
+}
+
+.toggle-switch-input:focus~.toggle-switch-label:before {
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+.toggle-switch-input:disabled~.toggle-switch-label:before {
+  opacity: 0.6;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.toggle-switch-input:disabled~.toggle-switch-label:after {
+  cursor: not-allowed;
+}
+
+// Weird MS Edge disabled state styling issue fix: https://github.com/carbon-design-system/carbon/pull/1538
+[disabled] ~ _ {
+  font-size: inherit;
+}
+
+.toggle-switch-input:not(:disabled):active~.toggle-switch-label:before,
+.toggle-switch-input:not(:disabled)~span.toggle-switch-label:active:before {
+  color: #fff;
+  box-shadow: inset 0 24px 10px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-switch-input:checked~.toggle-switch-label:after {
+  background-color: #fff;
+}
+
+.toggle-switch {
+  &--large {
+    padding-left: 52px;
+    min-height: 24px;
+
+    .toggle-switch-label {
+      &:before {
+        top: 0;
+        left: -52px;
+        width: 44px;
+        height: 24px;
+        border-radius: 34px;
+      }
+      &:after {
+        top: 4px;
+        left: -48px;
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    .toggle-switch-input:checked ~ .toggle-switch-label:after {
+      -webkit-transform: translateX(20px);
+      -ms-transform: translateX(20px);
+      transform: translateX(20px);
+    }
+  }
+
+  &--medium {
+    padding-left: 42px;
+    min-height: 19px;
+
+    .toggle-switch-label {
+      &:before {
+        top: 0;
+        left: -42px;
+        width: 34px;
+        height: 19px;
+        border-radius: 24px;
+      }
+      &:after {
+        top: 3px;
+        left: -39px;
+        width: 13px;
+        height: 13px;
+      }
+    }
+
+    .toggle-switch-input:checked ~ .toggle-switch-label:after {
+      -webkit-transform: translateX(15px);
+      -ms-transform: translateX(15px);
+      transform: translateX(15px);
+    }
+  }
+
+  &--small {
+    padding-left: 31px;
+    min-height: 14px;
+
+    .toggle-switch-label {
+      &:before {
+        top: 3px;
+        left: -31px;
+        width: 24px;
+        height: 14px;
+        border-radius: 7px;
+      }
+      &:after {
+        top: 5px;
+        left: -29px;
+        width: 10px;
+        height: 10px;
+      }
+    }
+
+    .toggle-switch-input:checked ~ .toggle-switch-label:after {
+      -webkit-transform: translateX(10px);
+      -ms-transform: translateX(10px);
+      transform: translateX(10px);
+    }
   }
 }
