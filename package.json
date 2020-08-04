@@ -33,6 +33,6 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.14.0",
     "eslint-plugin-react": "^7.12.4",
-    "mocha": "^5.2.0"
+    "mocha": "^6.2.3"
   }
 }
