@@ -42,7 +42,7 @@ let DateTimeInput = ({ onChange, value, minValue, maxValue, name, clearable, onC
     />
     {clearable &&
       <span className="input-group-btn">
-        <button className="btn btn-default" onClick={onClear}>
+        <button type="button" className="btn btn-default" onClick={onClear}>
           <span className="glyphicon glyphicon-remove"></span>
         </button>
       </span>
