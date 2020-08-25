@@ -3,6 +3,7 @@ import React from 'react';
 import Select from './Select';
 
 const propTypes = {
+  id: PropTypes.string,
   time: (props, propName) => {
     if (!/([0-9]:[0-9][0-9])/.test(props[propName])) {
       return new Error('time validation failed!');
@@ -74,6 +75,7 @@ class TimePicker extends React.Component {
       <div className="timepicker-wrapper row no-margin">
         <div className="col-sm-4 no-padding">
           <Select
+            id={this.props.id}
             options={this.hourOptions}
             value={this.hours}
             name="hours"
