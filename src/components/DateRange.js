@@ -25,8 +25,8 @@ export default class DateRange extends React.Component {
   };
 
   state = {
-    initStartDate: undefined,
-    initEndDate: undefined,
+    initStartDate: null,
+    initEndDate: null,
   };
 
   format(date) {
@@ -36,14 +36,14 @@ export default class DateRange extends React.Component {
   setStartDateInputRef = input => { this.startDateInput = input; };
   setEndDateInputRef = input => { this.endDateInput = input; };
 
-  initStartDate(startDate) {
+  initWithStartDate(startDate) {
     // Open end date picker up at the same place as this start date
     openAtDate(this.endDateInput, startDate);
     this.setState({ initStartDate: startDate });
     this.props.onChange({ [this.props.startDateName]: startDate }, true);
   }
 
-  initEndDate(endDate) {
+  initWithEndDate(endDate) {
     // Open start date picker up at the same place as this end date
     openAtDate(this.startDateInput, endDate);
     this.setState({ initEndDate: endDate });
@@ -57,13 +57,13 @@ export default class DateRange extends React.Component {
 
     if (!endDate) {
       // Busy initialising from blank range, we have only picked a start date at this point
-      this.initStartDate(startDate);
+      this.initWithStartDate(startDate);
       return;
     }
 
     if (!startDate) {
       // Busy initialising from blank range, we have only picked an end date at this point
-      this.initEndDate(endDate);
+      this.initWithEndDate(endDate);
       return;
     }
 
@@ -96,6 +96,11 @@ export default class DateRange extends React.Component {
       [startDateName]: this.format(start),
       [endDateName]: this.format(end)
     });
+
+    // We no longer need this temporary state
+    if (this.state.initStartDate || this.state.initEndDate) {
+      this.setState({ initStartDate: null, initEndDate: null });
+    }
   };
 
   render() {
