@@ -106,8 +106,10 @@ export default class InputDatePicker extends React.Component {
       setProperty($picker, 'maxDate', this.props.maxDate);
     }
     // Apply the new date last as the min/max date could have changed as well
-    if ($picker.val() !== this.props.startDate) {
-      setProperty($picker, 'date', this.props.startDate);
+    if (prevProps.startDate !== this.props.startDate) {
+      if ($picker.val() !== this.props.startDate) {
+        setProperty($picker, 'date', this.props.startDate || null);
+      }
     }
   }
 
@@ -130,13 +132,16 @@ export default class InputDatePicker extends React.Component {
       <span className="date-time-input-container">
         <input
           id={this.props.id}
+          aria-label={this.props['aria-label']}
+          aria-describedby={this.props['aria-describedby']}
+          aria-invalid={this.props['aria-invalid']}
+          data-identifier={this.props['data-identifier'] || this.props.dataIdentifier}
           ref={this.handleRef}
           type="text"
           className="form-control"
           name={this.props.identifier}
           disabled={this.props.disabled}
           placeholder={this.props.placeholder}
-          data-identifier={this.props.dataIdentifier}
           autoComplete="off"
         />
         <span onClick={this.handleCalendarClick} className="icon-container">
