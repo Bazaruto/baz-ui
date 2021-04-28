@@ -2,13 +2,14 @@ import React from 'react';
 import { Modal as ReactBootstrapModal } from 'react-bootstrap';
 
 export default class Modal extends React.Component {
-  handleClick = e => e.stopPropagation();
-
   render() {
     const { children, header, ...modalProps } = this.props;
     return (
-      <span onClick={this.handleClick}>
-        <ReactBootstrapModal {...modalProps}>
+      <ReactBootstrapModal {...modalProps}>
+        <span
+          data-submit-events-blocker
+          onSubmit={ev => ev.stopPropagation()}
+        >
           {header ? (
             <Layout header={header} onClose={modalProps.onHide}>
               {children}
@@ -16,21 +17,25 @@ export default class Modal extends React.Component {
           ) : (
             children
           )}
-        </ReactBootstrapModal>
-      </span>
+        </span>
+      </ReactBootstrapModal>
     );
   }
 }
 
 const Layout = (props) => {
-  let className = 'modal-padded-content margin-bottom'
+  let className = 'modal-body'
   if (props.className) {
     className += ` ${props.className}`;
   }
   return (
-    <div>
+    <>
       <div className="modal-header">
-        {props.header}
+        {props.header && (
+          <h4 className="modal-title">
+            {props.header}
+          </h4>
+        )}
         <button
           onClick={props.onClose}
           type="button"
@@ -39,12 +44,10 @@ const Layout = (props) => {
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div className="modal-body">
-        <div className={className}>
-          {props.children}
-        </div>
+      <div className={className}>
+        {props.children}
       </div>
-    </div>
+    </>
   );
 };
 
