@@ -1,7 +1,6 @@
 import inputable from './Inputable';
 import PropTypes from 'prop-types';
 import React from 'react';
-import _ from 'lodash';
 
 const propTypes = {
   id: PropTypes.string,
@@ -32,7 +31,7 @@ const defaultProps = {
   className: 'form-control',
 };
 
-export function Input({ type, onChange, value, dataIdentifier, inputRef, ...rest }) {
+export function Input({ type, onChange, inputRef, ...rest }) {
   function handleChange(ev) {
     if (!onChange) return;
     let val = ev.target.value;
@@ -42,8 +41,6 @@ export function Input({ type, onChange, value, dataIdentifier, inputRef, ...rest
   return (
     <input
       type={type}
-      value={!!onChange && _.isNil(value) ? '' : value}
-      data-identifier={dataIdentifier}
       ref={inputRef}
       onChange={handleChange}
       {...rest}

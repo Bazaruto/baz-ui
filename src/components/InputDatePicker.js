@@ -134,6 +134,7 @@ export default class InputDatePicker extends React.Component {
           id={this.props.id}
           aria-label={this.props['aria-label']}
           aria-describedby={this.props['aria-describedby']}
+          aria-errormessage={this.props['aria-errormessage']}
           aria-invalid={this.props['aria-invalid']}
           data-identifier={this.props['data-identifier'] || this.props.dataIdentifier}
           ref={this.handleRef}
@@ -141,6 +142,7 @@ export default class InputDatePicker extends React.Component {
           className="form-control"
           name={this.props.identifier}
           disabled={this.props.disabled}
+          required={this.props.required}
           placeholder={this.props.placeholder}
           autoComplete="off"
         />

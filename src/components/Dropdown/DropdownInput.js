@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Input from '../Input';
 
 const propTypes = {
   // Internal props
@@ -11,6 +10,7 @@ const propTypes = {
   onToggle: PropTypes.func,
   // External props
   onFocus: PropTypes.func,
+  buttonPanel: PropTypes.node,
 };
 
 const defaultProps = {
@@ -20,7 +20,7 @@ const defaultProps = {
   onToggle() {}
 };
 
-export const DropdownInput = React.forwardRef(({namespace, refs, expanded, focusedIndex, onToggle, ...props}, ref) => {
+export const DropdownInput = React.forwardRef(({namespace, refs, expanded, focusedIndex, onToggle, buttonPanel, ...props}, ref) => {
   const listboxId =`${namespace}-menu-listbox`;
   return (
     <div
@@ -28,14 +28,16 @@ export const DropdownInput = React.forwardRef(({namespace, refs, expanded, focus
       role="combobox"
       aria-expanded={expanded}
       aria-owns={listboxId}
-      aria-haspopup="listbox">
-      <Input
+      aria-haspopup="listbox"
+      className="relative"
+    >
+      <input
         {...props}
         aria-autocomplete="list"
         aria-controls={listboxId}
         aria-activedescendant={expanded && focusedIndex > -1 ? `result-${focusedIndex}` : null}
         autoComplete="off"
-        inputRef={input => {
+        ref={input => {
           ref && ref(input);
           refs.toggle = input;
         }}
@@ -44,6 +46,9 @@ export const DropdownInput = React.forwardRef(({namespace, refs, expanded, focus
           !expanded && onToggle();
         }}
       />
+      <span className="inputable-panel">
+        {buttonPanel}
+      </span>
     </div>
   );
 });
