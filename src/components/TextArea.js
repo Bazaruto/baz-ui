@@ -28,10 +28,7 @@ const defaultProps = {
 
 function TextArea({ inputRef, ...rest }) {
   return (
-    <textarea
-      ref={inputRef}
-      {...rest}
-    />
+    <textarea ref={inputRef} {...rest} />
   );
 }
 

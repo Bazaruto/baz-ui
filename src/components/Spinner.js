@@ -9,25 +9,19 @@ Spinner.propTypes = {
 
 Spinner.defaultProps = {
   show: true,
-  size: '',
-  className: ''
 };
 
 export default function Spinner(props) {
-  if (!props.show) {
-    return <span/>;
+  const { show, size, ...rest } = props;
+  if (!show) {
+    return null;
   }
   let className = 'loader';
   if (props.className) {
     className += ` ${props.className}`;
   }
-  if (props.size) {
-    className += ` ${props.size}`;
+  if (size) {
+    className += ` ${size}`;
   }
-  return (
-    <>
-      <span className={className} />
-      <span className="sr-only">In progress</span>
-    </>
-  );
+  return <span aria-hidden data-identifier="busy-spinner" {...rest} className={className} />;
 }
