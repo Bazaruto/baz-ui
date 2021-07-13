@@ -1,7 +1,6 @@
 import inputable from './Inputable';
 import PropTypes from 'prop-types';
 import React from 'react';
-import _ from 'lodash';
 
 const propTypes = {
   id: PropTypes.string,
@@ -32,22 +31,9 @@ const defaultProps = {
   className: 'form-control',
 };
 
-export function Input({ type, onChange, value, dataIdentifier, inputRef, ...rest }) {
-  function handleChange(ev) {
-    if (!onChange) return;
-    let val = ev.target.value;
-    val = type === 'number' ? ensurePositiveNumber(val) : val;
-    onChange(val);
-  }
+export function Input({ inputRef, ...rest }) {
   return (
-    <input
-      type={type}
-      value={!!onChange && _.isNil(value) ? '' : value}
-      data-identifier={dataIdentifier}
-      ref={inputRef}
-      onChange={handleChange}
-      {...rest}
-    />
+    <input ref={inputRef} {...rest} />
   );
 }
 
@@ -55,9 +41,3 @@ const Inputable = inputable(Input);
 Inputable.propTypes = propTypes;
 Inputable.defaultProps = defaultProps;
 export default Inputable;
-
-function ensurePositiveNumber(amount) {
-  if (amount === '') return '';
-  amount = parseInt(amount, 10);
-  return isNaN(amount) || amount < 0 ? 0 : amount;
-}

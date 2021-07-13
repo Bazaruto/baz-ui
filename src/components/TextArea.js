@@ -1,7 +1,6 @@
 import inputable from './Inputable';
 import PropTypes from 'prop-types';
 import React from 'react';
-import _ from 'lodash';
 
 const propTypes = {
   id: PropTypes.string,
@@ -27,14 +26,9 @@ const defaultProps = {
   className: 'form-control',
 };
 
-function TextArea({ value, dataIdentifier, inputRef, ...rest }) {
+function TextArea({ inputRef, ...rest }) {
   return (
-    <textarea
-      value={!!rest.onChange && _.isNil(value) ? '' : value}
-      data-identifier={dataIdentifier}
-      ref={inputRef}
-      {...rest}
-    />
+    <textarea ref={inputRef} {...rest} />
   );
 }
 
