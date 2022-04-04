@@ -20,7 +20,6 @@
     "react": ">= 16.6.0",
     "react-bootstrap": "^1.5.2",
     "redux-observable": "^1.0.0",
-    "reselect": ">= 2.5.3",
     "rxjs": "^6.4.0"
   },
   "devDependencies": {
