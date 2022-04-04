@@ -14,7 +14,8 @@
     "plugin:react/recommended"
   ],
   "rules": {
-    "react/prop-types": "warn"
+    "react/prop-types": "warn",
+    "react/react-in-jsx-scope": "off"
   },
   "globals": {
     "Honeybadger": true

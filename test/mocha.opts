@@ -1,5 +1,0 @@
---require @babel/register
---ui bdd
---reporter spec
---recursive
---timeout 5000

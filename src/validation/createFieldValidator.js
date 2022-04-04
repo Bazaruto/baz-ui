@@ -1,51 +1,31 @@
-import {isString, isObject} from 'lodash';
-import * as rules from './validation-rules';
+import * as ValidationRules from './validation-rules';
 import GlobalMessages from './ValidationMessages';
 
 /**
- * @param ruleContextObject The object that the rule was declared within, which has access to custom validator functions
- * @param rule String | Object
+ * @param ruleContextObject The object that declares the custom validation rules
+ * @param ruleName String
  * @returns A function that accepts the field value and form as arguments, and returns a message when invalid,
  * nothing when valid
  */
-export function createFieldValidator(ruleContextObject, rule) {
-  const isStringRule = isString(rule);
-  let validatorName, message;
-  if (isStringRule) {
-    validatorName = rule;
-    message = GlobalMessages[rule]; // If it's not a custom rule, then we will find a message here
-  } else if (isObject(rule)){
-    validatorName = rule.validator;
-    message = rule.message;
-  } else {
-    throw new TypeError('Field validator was neither a String | Object: ' + JSON.stringify(rule));
+export function createFieldValidator(ruleContextObject, ruleName) {
+  if (typeof ruleName !== 'string') {
+    throw new TypeError('Rule name must be a String: ' + JSON.stringify(ruleName));
   }
-
-  let validator = ruleContextObject[validatorName];
-  const isCustomRule = !!validator;
-  if (isCustomRule) {
-    if (validator.createMemoizedFieldValidator) {
-      const memoized = validator.createMemoizedFieldValidator();
-      validator = (_value, form) => memoized(form);
-    } else {
-      validator = validator.bind(ruleContextObject);
-    }
-  } else {
-    validator = rules[validatorName];
-  }
-
-  if (isStringRule && isCustomRule) {
-    // These are full validators that returns a message when invalid, so we use them as is
+  let validator = ruleContextObject[ruleName];
+  if (validator) {
+    validator = validator.bind(ruleContextObject);
     return validator;
   }
 
-  if (!message) {
-    throw new TypeError('No associated message was found for field validator: ' + JSON.stringify(rule));
+  validator = ValidationRules[ruleName];
+  if (!validator) {
+    throw new TypeError('No associated validator was found for rule: ' + ruleName);
   }
-
+  const message = GlobalMessages[ruleName];
+  if (!message) {
+    throw new TypeError('No associated message was found for global rule: ' + ruleName);
+  }
   return function validateField(value, form) {
-    // These are primitive validators that return true or false, so we need to make them whole by returning the
-    // associated message when invalid, and nothing when valid
     return validator(value, form) ? undefined : message;
   }
 }

@@ -1,5 +1,4 @@
 import { merge as lodashMerge } from 'lodash';
-import { createSelector } from 'reselect';
 import { isPresent } from './validation-rules';
 
 export { createValidator } from './createValidator';
@@ -12,12 +11,4 @@ export const isBlank = v => !isPresent(v);
  */
 export function merge(...defs) {
   return lodashMerge({}, ...defs);
-}
-
-export function memoize(...args) {
-  return {
-    createMemoizedFieldValidator() {
-      return createSelector(...args);
-    }
-  };
 }
