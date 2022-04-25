@@ -1,8 +1,8 @@
-import {EMPTY_ARRAY} from '../constants';
+import { EMPTY_ARRAY } from '../constants';
 
-export function findWithMatchingFields<T extends Record<string, unknown>>(
+export function findWithMatchingFields<T extends { [k in K]: string }, K extends PropertyKey >(
   collection: T[],
-  { fieldToMatch }: { fieldToMatch: keyof T },
+  { fieldToMatch }: { fieldToMatch: K },
   query = ''
 ) {
   if (query.length < 2) {
@@ -24,7 +24,7 @@ export function findWithMatchingFields<T extends Record<string, unknown>>(
   const matches = [];
   for (let i = 0; i < collection.length; i++) {
     const obj = collection[i];
-    const field = obj[fieldToMatch] as string;
+    const field = obj[fieldToMatch];
     if (searchRegex.test(field)) {
       matches.push(obj);
     }
