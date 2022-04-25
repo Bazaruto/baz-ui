@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 import Moment from 'moment';
-import { YEAR_MONTH_DAY_TIME, YEAR_MONTH_DAY } from '../constants/date-format';
+import { YEAR_MONTH_DAY_TIME, YEAR_MONTH_DAY } from '../utils/date-utils';
 import $ from 'jquery';
 import '../libs/bootstrap-datetimepicker.min';
 
