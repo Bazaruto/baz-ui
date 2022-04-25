@@ -1,6 +1,6 @@
 import { EMPTY_ARRAY } from '../constants';
 
-export function findWithMatchingFields<T extends { [k in K]: string }, K extends PropertyKey >(
+export function findWithMatchingFields<T, K extends keyof T>(
   collection: T[],
   { fieldToMatch }: { fieldToMatch: K },
   query = ''
@@ -24,7 +24,7 @@ export function findWithMatchingFields<T extends { [k in K]: string }, K extends
   const matches = [];
   for (let i = 0; i < collection.length; i++) {
     const obj = collection[i];
-    const field = obj[fieldToMatch];
+    const field = obj[fieldToMatch] as any;
     if (searchRegex.test(field)) {
       matches.push(obj);
     }
