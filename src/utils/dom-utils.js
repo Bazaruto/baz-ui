@@ -1,11 +1,10 @@
-import {EMPTY_OBJECT} from '../constants';
 import {isNil, isArray} from 'lodash';
 
 export function getUrlSearchParams(url) {
   // get query string from url (optional) or window
   let queryString = url ? url.split('?')[1] : window.location.search.slice(1);
   if (!queryString) {
-    return EMPTY_OBJECT;
+    return {};
   }
 
   const urlParams = {};

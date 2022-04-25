@@ -4,7 +4,7 @@ export function findWithMatchingFields<T, K extends keyof T>(
   collection: T[],
   { fieldToMatch }: { fieldToMatch: K },
   query = ''
-) {
+): T[] {
   if (query.length < 2) {
     return EMPTY_ARRAY;
   }
