@@ -1,13 +1,9 @@
-import * as ValidationRules from './validation-rules';
+import * as rules from './validation-rules';
 import GlobalMessages from './ValidationMessages';
 
-/**
- * @param ruleContextObject The object that declares the custom validation rules
- * @param ruleName String
- * @returns A function that accepts the field value and form as arguments, and returns a message when invalid,
- * nothing when valid
- */
-export function createFieldValidator(ruleContextObject, ruleName) {
+export type FieldValidator = (val: any, form?: any) => string | void;
+
+export function createFieldValidator(ruleContextObject: any, ruleName: string) {
   if (typeof ruleName !== 'string') {
     throw new TypeError('Rule name must be a String: ' + JSON.stringify(ruleName));
   }
@@ -16,8 +12,8 @@ export function createFieldValidator(ruleContextObject, ruleName) {
     validator = validator.bind(ruleContextObject);
     return validator;
   }
-
-  validator = ValidationRules[ruleName];
+  // @ts-expect-error I don't see a way to add type information for "import * as rules"
+  validator = rules[ruleName];
   if (!validator) {
     throw new TypeError('No associated validator was found for rule: ' + ruleName);
   }
@@ -25,7 +21,7 @@ export function createFieldValidator(ruleContextObject, ruleName) {
   if (!message) {
     throw new TypeError('No associated message was found for global rule: ' + ruleName);
   }
-  return function validateField(value, form) {
+  return function validateField(value: any, form: any) {
     return validator(value, form) ? undefined : message;
   }
 }

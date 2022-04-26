@@ -1,4 +1,4 @@
-const ValidationMessages = {
+const ValidationMessages: Record<string, string> = {
   isPresent: 'This is required',
   isNotEmpty: 'This is required',
   isRequired: 'This is required',

@@ -105,7 +105,7 @@ class CurrencyInput extends Component {
   };
 
   render() {
-    // eslint-disable-next-line no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { dataIdentifier, value, inputRef, ...rest } = this.props;
     return (
       <input

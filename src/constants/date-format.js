@@ -1,9 +1,0 @@
-export const SHORT_MONTH_YEAR = 'MMM YYYY';
-export const SHORT_DAY_MONTH = 'Do MMM';
-export const SHORT_MONTH_DAY_YEAR = 'MMM DD, YYYY';
-export const LONG = 'D MMMM YYYY';
-export const SHORT = 'D MMM YYYY';
-export const YEAR_MONTH_DAY = 'YYYY-MM-DD';
-export const YEAR_MONTH_DAY_TIME = 'YYYY-MM-DD HH:mm';
-export const YEAR_MONTH_DAY_TIME_ZONE = 'YYYY-MM-DD [at] HH:mm z';
-export const YEAR_MONTH_DAY_TIME_SEC = 'YYYY-MM-DD HH:mm:ss';
