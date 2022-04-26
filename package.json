@@ -1,7 +1,10 @@
 {
   "name": "baz-ui",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "exports": {
+    "./components/*": "./src/components/*",
+    "./utils/*": "./src/utils/*"
+  },
   "repository": "git@github.com:Bazaruto/baz-ui.git",
   "license": "UNLICENSED",
   "private": true,
