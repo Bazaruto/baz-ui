@@ -17,6 +17,7 @@ const propTypes = {
   showTimePicker: PropTypes.bool,
   viewMode: PropTypes.string,
   disabled: PropTypes.bool,
+  daysOfWeekDisabled: PropTypes.array
 };
 
 const defaultProps = {
@@ -36,7 +37,7 @@ function setProperty($picker, property, value) {
 
 export default class InputDatePicker extends React.Component {
   componentDidMount() {
-    const { showTimePicker, startDate, viewMode, minDate, maxDate } = this.props;
+    const { showTimePicker, startDate, viewMode, minDate, maxDate, daysOfWeekDisabled } = this.props;
     const format = showTimePicker ? YEAR_MONTH_DAY_TIME : YEAR_MONTH_DAY;
     const $picker = $(this.picker).datetimepicker({
       format,
@@ -53,6 +54,10 @@ export default class InputDatePicker extends React.Component {
 
     if (maxDate) {
       setProperty($picker, 'maxDate', maxDate);
+    }
+
+    if (daysOfWeekDisabled) {
+      setProperty($picker, 'daysOfWeekDisabled', daysOfWeekDisabled);
     }
 
     // Only apply date when we hide the picker
