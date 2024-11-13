@@ -54,8 +54,8 @@ export default class InputDatePicker extends React.Component {
       defaultDate: startDate,
       useCurrent: false, // If we have no initial value, we keep the input blank
       keyBinds: null,
-      sideBySide: sideBySide,
-      viewMode: viewMode,
+      sideBySide,
+      viewMode,
     });
 
     if (minDate) {
