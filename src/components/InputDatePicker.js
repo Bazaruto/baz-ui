@@ -1,10 +1,10 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import _ from 'lodash';
-import Moment from 'moment';
-import { YEAR_MONTH_DAY_TIME, YEAR_MONTH_DAY } from '../utils/date-utils';
-import $ from 'jquery';
-import '../libs/bootstrap-datetimepicker.min';
+import PropTypes from "prop-types";
+import React from "react";
+import _ from "lodash";
+import Moment from "moment";
+import { YEAR_MONTH_DAY_TIME, YEAR_MONTH_DAY } from "../utils/date-utils";
+import $ from "jquery";
+import "../libs/bootstrap-datetimepicker.min";
 
 const propTypes = {
   id: PropTypes.string,
@@ -16,60 +16,73 @@ const propTypes = {
   identifier: PropTypes.string,
   showTimePicker: PropTypes.bool,
   viewMode: PropTypes.string,
+  sideBySide: PropTypes.bool,
   disabled: PropTypes.bool,
-  daysOfWeekDisabled: PropTypes.array
+  daysOfWeekDisabled: PropTypes.array,
 };
 
 const defaultProps = {
-  startDate: '',
-  className: 'datepicker--input',
-  viewMode: 'days',
+  startDate: "",
+  className: "datepicker--input",
+  viewMode: "days",
+  sideBySide: true,
 };
 
 export function openAtDate(input, date) {
-  setProperty($(input), 'viewDate', date);
+  setProperty($(input), "viewDate", date);
   input.focus();
 }
 
 function setProperty($picker, property, value) {
-  return $picker.data('DateTimePicker')[property](value);
+  return $picker.data("DateTimePicker")[property](value);
 }
 
 export default class InputDatePicker extends React.Component {
   componentDidMount() {
-    const { showTimePicker, startDate, viewMode, minDate, maxDate, daysOfWeekDisabled } = this.props;
+    const {
+      showTimePicker,
+      startDate,
+      viewMode,
+      sideBySide,
+      minDate,
+      maxDate,
+      daysOfWeekDisabled,
+    } = this.props;
     const format = showTimePicker ? YEAR_MONTH_DAY_TIME : YEAR_MONTH_DAY;
     const $picker = $(this.picker).datetimepicker({
       format,
       defaultDate: startDate,
       useCurrent: false, // If we have no initial value, we keep the input blank
       keyBinds: null,
-      sideBySide: true,
-      viewMode: viewMode,
+      sideBySide,
+      viewMode,
     });
 
     if (minDate) {
-      setProperty($picker, 'minDate', minDate);
+      setProperty($picker, "minDate", minDate);
     }
 
     if (maxDate) {
-      setProperty($picker, 'maxDate', maxDate);
+      setProperty($picker, "maxDate", maxDate);
     }
 
     if (daysOfWeekDisabled) {
-      setProperty($picker, 'daysOfWeekDisabled', daysOfWeekDisabled);
+      setProperty($picker, "daysOfWeekDisabled", daysOfWeekDisabled);
     }
 
     // Only apply date when we hide the picker
-    $picker.on('dp.hide', () => {
+    $picker.on("dp.hide", () => {
       if (_.isEmpty($picker.val())) {
         // Revert back if we have a date set
         if (this.props.startDate) {
-          setProperty($picker, 'date', this.props.startDate);
+          setProperty($picker, "date", this.props.startDate);
         } else {
           // Blank state UX: Hack to open up the picker at the same place it was last closed
-          const currentViewDate = $picker.data('DateTimePicker').viewDate();
-          setTimeout(() => setProperty($picker, 'viewDate', currentViewDate), 0);
+          const currentViewDate = $picker.data("DateTimePicker").viewDate();
+          setTimeout(
+            () => setProperty($picker, "viewDate", currentViewDate),
+            0
+          );
         }
         return;
       }
@@ -80,14 +93,14 @@ export default class InputDatePicker extends React.Component {
     });
 
     // Key bindings are turned off, so we can determine our custom behaviour
-    $picker.on('keyup', (e) => {
+    $picker.on("keyup", (e) => {
       // Do nothing if arrow keys are being used
       if (e.which >= 37 && e.which <= 40) {
         return;
       }
       // Set date and hide picker on enter
       if (e.which === 13) {
-        const dropDown = $picker.data('DateTimePicker');
+        const dropDown = $picker.data("DateTimePicker");
         dropDown.date($picker.val());
         dropDown.hide();
         // If the date is strictly valid as we type, then set date and keep cursor position
@@ -95,7 +108,7 @@ export default class InputDatePicker extends React.Component {
         const start = $picker[0].selectionStart;
         const end = $picker[0].selectionEnd;
 
-        setProperty($picker, 'date', $picker.val());
+        setProperty($picker, "date", $picker.val());
         $picker[0].setSelectionRange(start, end);
         this.props.onApply($picker.val());
       }
@@ -105,24 +118,24 @@ export default class InputDatePicker extends React.Component {
   componentDidUpdate(prevProps) {
     const $picker = $(this.picker);
     if (prevProps.minDate !== this.props.minDate) {
-      setProperty($picker, 'minDate', this.props.minDate);
+      setProperty($picker, "minDate", this.props.minDate);
     }
     if (prevProps.maxDate !== this.props.maxDate) {
-      setProperty($picker, 'maxDate', this.props.maxDate);
+      setProperty($picker, "maxDate", this.props.maxDate);
     }
     // Apply the new date last as the min/max date could have changed as well
     if (prevProps.startDate !== this.props.startDate) {
       if ($picker.val() !== this.props.startDate) {
-        setProperty($picker, 'date', this.props.startDate || null);
+        setProperty($picker, "date", this.props.startDate || null);
       }
     }
   }
 
   componentWillUnmount() {
-    $(this.picker).data('DateTimePicker').destroy();
+    $(this.picker).data("DateTimePicker").destroy();
   }
 
-  handleRef = ref => {
+  handleRef = (ref) => {
     this.picker = ref;
     const { inputRef } = this.props;
     if (inputRef) {
@@ -137,11 +150,13 @@ export default class InputDatePicker extends React.Component {
       <span className="date-time-input-container">
         <input
           id={this.props.id}
-          aria-label={this.props['aria-label']}
-          aria-describedby={this.props['aria-describedby']}
-          aria-errormessage={this.props['aria-errormessage']}
-          aria-invalid={this.props['aria-invalid']}
-          data-identifier={this.props['data-identifier'] || this.props.dataIdentifier}
+          aria-label={this.props["aria-label"]}
+          aria-describedby={this.props["aria-describedby"]}
+          aria-errormessage={this.props["aria-errormessage"]}
+          aria-invalid={this.props["aria-invalid"]}
+          data-identifier={
+            this.props["data-identifier"] || this.props.dataIdentifier
+          }
           ref={this.handleRef}
           type="text"
           className="form-control"
@@ -151,11 +166,12 @@ export default class InputDatePicker extends React.Component {
           placeholder={this.props.placeholder}
           autoComplete="off"
         />
+
         <span onClick={this.handleCalendarClick} className="icon-container">
           <span className="icon-calendar" />
         </span>
       </span>
-    )
+    );
   }
 }
 
