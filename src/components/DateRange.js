@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Moment from "moment";
+import dayjs from "dayjs";
 import { formatDateTime, formatDate } from "../utils/date-utils";
 import { openAtDate } from "./InputDatePicker";
 
@@ -78,27 +78,27 @@ export default class DateRange extends React.Component {
     }
 
     const startChanged = !!newState[startDateName];
-    let start = Moment(startDate);
-    let end = Moment(endDate);
+    let start = dayjs(startDate);
+    let end = dayjs(endDate);
 
     if (startChanged) {
       if (start.isAfter(end)) {
-        end = Moment(start).add(defaultDays, "days");
+        end = dayjs(start).add(defaultDays, "days");
       }
       if (monthLimit) {
-        end = Moment.min(end, Moment(start).add(monthLimit, "months")); // Limited to a window
+        end = dayjs.min(end, dayjs(start).add(monthLimit, "months")); // Limited to a window
       }
     }
 
     if (!startChanged) {
       if (end.isBefore(start)) {
-        start = Moment(end).subtract(defaultDays, "days");
+        start = dayjs(end).subtract(defaultDays, "days");
       }
       if (monthLimit) {
-        start = Moment.max(start, Moment(end).subtract(monthLimit, "months")); // Limited to a window
+        start = dayjs.max(start, dayjs(end).subtract(monthLimit, "months")); // Limited to a window
       }
       if (minDate) {
-        start = Moment.max(start, Moment(minDate));
+        start = dayjs.max(start, dayjs(minDate));
       }
     }
 

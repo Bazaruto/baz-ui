@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import _ from "lodash";
-import Moment from "moment";
+import dayjs from "dayjs";
 import { YEAR_MONTH_DAY_TIME, YEAR_MONTH_DAY } from "../utils/date-utils";
 import $ from "jquery";
 import "../libs/bootstrap-datetimepicker.min";
@@ -86,7 +86,7 @@ export default class InputDatePicker extends React.Component {
         }
         return;
       }
-      const newValue = Moment($picker.val()).format(format);
+      const newValue = dayjs($picker.val()).format(format);
       if (newValue !== this.props.startDate) {
         this.props.onApply(newValue);
       }
@@ -104,7 +104,7 @@ export default class InputDatePicker extends React.Component {
         dropDown.date($picker.val());
         dropDown.hide();
         // If the date is strictly valid as we type, then set date and keep cursor position
-      } else if (Moment($picker.val(), format, true).isValid()) {
+      } else if (dayjs($picker.val(), format, true).isValid()) {
         const start = $picker[0].selectionStart;
         const end = $picker[0].selectionEnd;
 
