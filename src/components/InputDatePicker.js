@@ -2,9 +2,11 @@ import PropTypes from "prop-types";
 import React from "react";
 import _ from "lodash";
 import dayjs from "dayjs";
-import { YEAR_MONTH_DAY_TIME, YEAR_MONTH_DAY } from "../utils/date-utils";
+import { DateFormat } from "../constants/DateFormat";
 import $ from "jquery";
 import "../libs/bootstrap-datetimepicker.min";
+
+const { YEAR_MONTH_DAY_TIME, YEAR_MONTH_DAY } = DateFormat;
 
 const propTypes = {
   id: PropTypes.string,
