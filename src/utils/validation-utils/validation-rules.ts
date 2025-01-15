@@ -16,11 +16,11 @@ export function isNotZero(value: number | string) {
 }
 
 export function isGreaterThanZero(value: number | string) {
-  return value > 0;
+  return Number(value) > 0;
 }
 
 export function isNotNegative(value: number | string) {
-  return value >= 0;
+  return Number(value) >= 0;
 }
 
 export function isEmail(value: string) {
