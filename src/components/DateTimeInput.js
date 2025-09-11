@@ -24,13 +24,9 @@ const propTypes = {
   onClear: PropTypes.func,
 };
 
-const defaultProps = {
-  value: "",
-};
-
 let DateTimeInput = ({
   onChange,
-  value,
+  value = "",
   minValue,
   maxValue,
   name,
@@ -59,5 +55,5 @@ let DateTimeInput = ({
 
 DateTimeInput = Inputable(DateTimeInput);
 DateTimeInput.propTypes = propTypes;
-DateTimeInput.defaultProps = defaultProps;
+
 export default DateTimeInput;

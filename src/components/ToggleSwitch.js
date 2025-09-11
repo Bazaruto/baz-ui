@@ -16,17 +16,14 @@ ToggleSwitch.propTypes = {
   size: PropTypes.oneOf(['small', 'medium', 'large']),
 };
 
-ToggleSwitch.defaultProps = {
-  size: 'medium',
-};
-
 export default function ToggleSwitch(props) {
+  const { size = 'medium' } = props
   const internalId = useId();
   const id = props.id || internalId;
   const inputRef = useRef();
   let containerClassName = 'toggle-switch';
-  if (props.size) {
-    containerClassName += ` toggle-switch--${props.size}`;
+  if (size) {
+    containerClassName += ` toggle-switch--${size}`;
   }
   return (
     <div className={containerClassName}>

@@ -26,18 +26,14 @@ const propTypes = {
   index: PropTypes.number,
 };
 
-const defaultProps = {
-  type: 'text',
-  className: 'form-control',
-};
 
 export function Input({ inputRef, ...rest }) {
   return (
-    <input ref={inputRef} {...rest} />
+    <input  ref={inputRef} type='text' className='form-control' {...rest} />
   );
 }
 
 const Inputable = inputable(Input);
 Inputable.propTypes = propTypes;
-Inputable.defaultProps = defaultProps;
+
 export default Inputable;

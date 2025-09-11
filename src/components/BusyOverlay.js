@@ -5,12 +5,10 @@ BusyOverlay.propTypes = {
   show: PropTypes.bool,
 };
 
-BusyOverlay.defaultProps = {
-  show: true,
-};
-
 export default function BusyOverlay(props) {
-  if (!props.show) {
+  const { show = true} = props;
+
+  if (show) {
     return null;
   }
   let className = 'busy-overlay';

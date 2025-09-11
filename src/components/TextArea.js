@@ -21,18 +21,12 @@ const propTypes = {
   disabled: PropTypes.bool,
 };
 
-const defaultProps = {
-  style: { maxWidth: '100%' },
-  className: 'form-control',
-};
-
 function TextArea({ inputRef, ...rest }) {
   return (
-    <textarea ref={inputRef} {...rest} />
+    <textarea ref={inputRef} style={{ maxWidth: '100%' }} className='form-control' {...rest} />
   );
 }
 
 const Inputable = inputable(TextArea);
 Inputable.propTypes = propTypes;
-Inputable.defaultProps = defaultProps;
 export default Inputable;
