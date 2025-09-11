@@ -6,9 +6,9 @@ BusyOverlay.propTypes = {
 };
 
 export default function BusyOverlay(props) {
-  const { show = true} = props;
+  const { show = true } = props;
 
-  if (show) {
+  if (!show) {
     return null;
   }
   let className = 'busy-overlay';

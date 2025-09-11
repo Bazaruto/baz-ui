@@ -29,7 +29,7 @@ const propTypes = {
 
 export function Input({ inputRef, ...rest }) {
   return (
-    <input  ref={inputRef} type='text' className='form-control' {...rest} />
+    <input ref={inputRef} type='text' className='form-control' {...rest} />
   );
 }
 
