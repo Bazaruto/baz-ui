@@ -9,11 +9,8 @@ WithTooltip.propTypes = {
   className: PropTypes.string
 };
 
-WithTooltip.defaultProps = {
-  placement: 'bottom',
-};
-
 export default function WithTooltip(props) {
+  const { placement = 'bottom' } = props;
   const id = useId();
   if (!props.tooltip) {
     return props.children;
@@ -26,7 +23,7 @@ export default function WithTooltip(props) {
   );
 
   return (
-    <OverlayTrigger overlay={tooltip} placement={props.placement}>
+    <OverlayTrigger overlay={tooltip} placement={placement}>
       {props.children}
     </OverlayTrigger>
   );

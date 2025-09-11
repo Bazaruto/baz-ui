@@ -7,12 +7,8 @@ Spinner.propTypes = {
   className: PropTypes.string
 };
 
-Spinner.defaultProps = {
-  show: true,
-};
-
 export default function Spinner(props) {
-  const { show, size, ...rest } = props;
+  const { show = true, size, ...rest } = props;
   if (!show) {
     return null;
   }
