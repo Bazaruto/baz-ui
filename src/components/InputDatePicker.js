@@ -21,6 +21,7 @@ const propTypes = {
   sideBySide: PropTypes.bool,
   disabled: PropTypes.bool,
   daysOfWeekDisabled: PropTypes.array,
+  displayFormat: PropTypes.string,
 };
 
 const defaultProps = {
@@ -28,6 +29,7 @@ const defaultProps = {
   className: "datepicker--input",
   viewMode: "days",
   sideBySide: true,
+  displayFormat: YEAR_MONTH_DAY,
 };
 
 export function openAtDate(input, date) {
@@ -49,8 +51,9 @@ export default class InputDatePicker extends React.Component {
       minDate,
       maxDate,
       daysOfWeekDisabled,
+      displayFormat,
     } = this.props;
-    const format = showTimePicker ? YEAR_MONTH_DAY_TIME : YEAR_MONTH_DAY;
+    const format = showTimePicker ? YEAR_MONTH_DAY_TIME : displayFormat;
     const $picker = $(this.picker).datetimepicker({
       format,
       defaultDate: startDate,
