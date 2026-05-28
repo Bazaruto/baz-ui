@@ -91,7 +91,7 @@ export default class InputDatePicker extends React.Component {
         }
         return;
       }
-      const newValue = dayjs($picker.val()).format(format);
+      const newValue = dayjs($picker.val(), format).format(YEAR_MONTH_DAY);
       if (newValue !== this.props.startDate) {
         this.props.onApply(newValue);
       }
@@ -115,7 +115,7 @@ export default class InputDatePicker extends React.Component {
 
         setProperty($picker, "date", $picker.val());
         $picker[0].setSelectionRange(start, end);
-        this.props.onApply($picker.val());
+        this.props.onApply(dayjs($picker.val(), format).format(YEAR_MONTH_DAY));
       }
     });
   }
@@ -130,7 +130,10 @@ export default class InputDatePicker extends React.Component {
     }
     // Apply the new date last as the min/max date could have changed as well
     if (prevProps.startDate !== this.props.startDate) {
-      if ($picker.val() !== this.props.startDate) {
+      const { showTimePicker, displayFormat } = this.props;
+      const format = showTimePicker ? YEAR_MONTH_DAY_TIME : displayFormat;
+      const currentValue = dayjs($picker.val(), format).format(YEAR_MONTH_DAY);
+      if (currentValue !== this.props.startDate) {
         setProperty($picker, "date", this.props.startDate || null);
       }
     }
