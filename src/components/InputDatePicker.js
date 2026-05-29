@@ -91,7 +91,8 @@ export default class InputDatePicker extends React.Component {
         }
         return;
       }
-      const newValue = dayjs($picker.val(), format).format(YEAR_MONTH_DAY);
+      const storageFormat = showTimePicker ? YEAR_MONTH_DAY_TIME : YEAR_MONTH_DAY;
+      const newValue = dayjs($picker.val(), format).format(storageFormat);
       if (newValue !== this.props.startDate) {
         this.props.onApply(newValue);
       }
@@ -115,7 +116,7 @@ export default class InputDatePicker extends React.Component {
 
         setProperty($picker, "date", $picker.val());
         $picker[0].setSelectionRange(start, end);
-        this.props.onApply(dayjs($picker.val(), format).format(YEAR_MONTH_DAY));
+        this.props.onApply(dayjs($picker.val(), format).format(showTimePicker ? YEAR_MONTH_DAY_TIME : YEAR_MONTH_DAY));
       }
     });
   }
@@ -132,7 +133,7 @@ export default class InputDatePicker extends React.Component {
     if (prevProps.startDate !== this.props.startDate) {
       const { showTimePicker, displayFormat } = this.props;
       const format = showTimePicker ? YEAR_MONTH_DAY_TIME : displayFormat;
-      const currentValue = dayjs($picker.val(), format).format(YEAR_MONTH_DAY);
+      const currentValue = dayjs($picker.val(), format).format(showTimePicker ? YEAR_MONTH_DAY_TIME : YEAR_MONTH_DAY);
       if (currentValue !== this.props.startDate) {
         setProperty($picker, "date", this.props.startDate || null);
       }
