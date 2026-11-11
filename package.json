@@ -7,30 +7,37 @@
   "private": true,
   "scripts": {
     "test": "node_modules/.bin/mocha",
-    "lint": "node_modules/.bin/eslint -c ./.eslintrc.json --quiet src"
+    "lint": "node_modules/.bin/eslint --quiet src test",
+    "typecheck": "node_modules/.bin/tsc --noEmit"
   },
+  "packageManager": "yarn@1.22.22",
   "dependencies": {},
   "peerDependencies": {
+    "dayjs": "^1.11.13",
     "jquery": ">= 3.3.1",
     "lodash": "^4.17.11",
-    "dayjs": "^1.11.13",
     "react": ">= 16.6.0",
     "react-bootstrap": "^1.5.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "@babel/plugin-proposal-class-properties": "^7.5.0",
-    "@babel/preset-env": "^7.3.1",
-    "@babel/register": "^7.0.0",
-    "@types/lodash": "^4.14.182",
-    "@typescript-eslint/eslint-plugin": "^5.20.0",
-    "@typescript-eslint/parser": "^5.20.0",
-    "babel-eslint": "^10.0.1",
-    "dayjs": "^1.11.13",
-    "eslint": "^8.14.0",
-    "eslint-plugin-react": "^7.12.4",
-    "lodash": "^4.17.21",
-    "mocha": "^9.2.2",
-    "typescript": "^4.6.3"
+    "@babel/core": "^7.29.13",
+    "@babel/plugin-transform-class-properties": "^7.29.7",
+    "@babel/plugin-transform-destructuring": "^7.29.13",
+    "@babel/plugin-transform-object-rest-spread": "^7.29.7",
+    "@babel/preset-env": "^7.29.7",
+    "@babel/preset-react": "^7.29.7",
+    "@babel/preset-typescript": "^7.29.7",
+    "@babel/register": "^7.29.13",
+    "@eslint/js": "^9.39.5",
+    "@types/lodash": "^4.17.27",
+    "@typescript-eslint/eslint-plugin": "^8.72.1",
+    "@typescript-eslint/parser": "^8.72.1",
+    "dayjs": "^1.11.23",
+    "eslint": "^9.39.5",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^17.14.0",
+    "lodash": "^4.18.1",
+    "mocha": "^12.0.3",
+    "typescript": "~6.0.3"
   }
 }

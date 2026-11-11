@@ -1,31 +1,28 @@
 module.exports = function(api) {
   checkEnv(api);
-  var isDevelopmentEnv = api.env('development')
-  var isProductionEnv = api.env('production')
-  var isTestEnv = api.env('test')
 
   const presets = [
     [
       require('@babel/preset-env').default,
       {
-        targets: {
-          node: 'current'
-        }
+        bugfixes: true,
       }
     ],
+    [require('@babel/preset-react').default, { runtime: 'classic' }],
+    [require('@babel/preset-typescript').default, { allowDeclareFields: true }],
   ]
 
   const plugins = [
     require('@babel/plugin-transform-destructuring').default,
+    require('@babel/plugin-transform-class-properties').default,
     [
-      require('@babel/plugin-proposal-class-properties').default, { loose: true }
-    ],
-    [
-      require('@babel/plugin-proposal-object-rest-spread').default, { useBuiltIns: true }
+      require('@babel/plugin-transform-object-rest-spread').default, { useBuiltIns: true }
     ],
   ];
 
   return {
+    targets: { node: 'current' },
+    assumptions: { setPublicClassFields: true },
     presets,
     plugins,
   };

@@ -58,11 +58,11 @@ export default class DateRange extends React.Component {
   handleDateRangeChange = (newState) => {
     const { startDateName, endDateName, defaultDays, monthLimit, minDate } =
       this.props;
-    let startDate =
+    const startDate =
       newState[startDateName] ||
       this.props.startDate ||
       this.state.initStartDate;
-    let endDate =
+    const endDate =
       newState[endDateName] || this.props.endDate || this.state.initEndDate;
 
     if (!endDate) {
