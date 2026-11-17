@@ -19,8 +19,8 @@ module.exports = [
       },
     },
     plugins: { '@typescript-eslint': tsPlugin, react },
-    // The library declares React >=16.6 as a peer, rather than installing it.
-    settings: { react: { version: '16.6' } },
+    // The library declares React >=16.8 as a peer, rather than installing it.
+    settings: { react: { version: '16.8' } },
     rules: {
       ...js.configs.recommended.rules,
       ...tsPlugin.configs['eslint-recommended'].overrides[0].rules,
